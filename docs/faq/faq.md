@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Các lỗi thường gặp và cách giải quyết
 
 Trong quá trình triển khai và sử dụng hệ thống KYPO Cyber Range, có thể gặp một số lỗi phổ biến liên quan đến cài đặt môi trường, khởi tạo sandbox hoặc thời gian tạo máy ảo. Dưới đây là một số lỗi thường gặp và cách khắc phục.
@@ -26,8 +25,3 @@ Sau khi sandbox được tạo, đôi khi người dùng không thể truy cập
 Trong quá trình phát triển hoặc triển khai hệ thống, developer có thể gặp lỗi khi build hoặc chạy các service của KYPO. Nguyên nhân thường do thiếu thư viện, phiên bản Java không phù hợp hoặc lỗi cấu hình môi trường.
 
 Cách giải quyết là kiểm tra lại các công cụ đã cài đặt như Java, Maven và NodeJS. Sau đó tiến hành build lại project và kiểm tra log để xác định lỗi cụ thể.
-=======
----
-title: Các lỗi thường gặp và cách giải quyết 
----
->>>>>>> 61e4fb17add6fcc31192ac3eeb8059863a9e8c19

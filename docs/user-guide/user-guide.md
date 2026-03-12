@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 # Hướng dẫn sử dụng hệ thống
+
 # 1. Đăng nhập hệ thống
 
 Để sử dụng hệ thống KYPO, người dùng cần truy cập vào Training Portal thông qua trình duyệt web. Sau khi mở trang hệ thống, người dùng đăng nhập bằng tài khoản đã được cấp. Sau khi đăng nhập thành công, giao diện chính của hệ thống sẽ hiển thị các bài training và các chức năng mà người dùng có thể sử dụng.
@@ -23,8 +23,3 @@ Sau khi sandbox được tạo thành công, hệ thống sẽ cung cấp thông
 # 5. Kết thúc bài thực hành
 
 Sau khi hoàn thành bài lab, người dùng có thể dừng sandbox hoặc thoát khỏi môi trường thực hành. Việc dừng sandbox giúp giải phóng tài nguyên của hệ thống và tránh việc sử dụng tài nguyên không cần thiết.
-=======
----
-title: Hướng dẫn sử dụng
----
->>>>>>> 61e4fb17add6fcc31192ac3eeb8059863a9e8c19
