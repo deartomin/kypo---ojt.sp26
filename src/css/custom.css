@@ -5,26 +5,257 @@
  */
 
 /* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+/* ===== Background ===== */
+/* ===== DARK MODE CYBER SECURITY ===== */
+/* ===== CYBER DARK MODE ===== */
+
+[data-theme='dark'] {
+  --ifm-background-color: #0b0f19;
+  --ifm-background-surface-color: #111827;
+  --ifm-font-color-base: #e5e7eb;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* sidebar */
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background-color: #0f172a;
+}
+
+/* menu */
+
+[data-theme='dark'] .menu__link {
+  color: #cbd5f5;
+}
+
+[data-theme='dark'] .menu__link:hover {
+  color: #00ff9c;
+}
+
+[data-theme='dark'] .menu__link--active {
+  color: #00ff9c;
+  font-weight: bold;
+}
+
+/* title */
+
+[data-theme='dark'] h1 {
+  color: #22c55e;
+}
+
+[data-theme='dark'] h2 {
+  color: #38bdf8;
+  border-left: 4px solid #38bdf8;
+  padding-left: 10px;
+}
+
+/* code */
+
+[data-theme='dark'] pre {
+  background: #020617;
+  color: #00ff9c;
+  border-radius: 10px;
+}
+
+[data-theme='dark'] code {
+  background: #111827;
+  color: #00ff9c;
+}
+
+/* ===== ALERT BOX ===== */
+
+.alert-warning {
+  background: #fff4e5;
+  border-left: 5px solid #ff9800;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.alert-tip {
+  background: #e8f5e9;
+  border-left: 5px solid #4caf50;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.alert-info {
+  background: #e3f2fd;
+  border-left: 5px solid #2196f3;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+/* ===== HEADER CYBER ===== */
+
+.navbar {
+  background: linear-gradient(90deg, #0f172a, #1e3a8a, #0f172a);
+}
+
+/* logo text */
+
+.navbar__title {
+  font-weight: bold;
+  color: #00ff9c;
+}
+
+/* navbar link */
+
+.navbar__link {
+  color: #e5e7eb;
+}
+
+.navbar__link:hover {
+  color: #00ff9c;
+}
+
+pre {
+  background: #020617;
+  border: 1px solid #00ff9c;
+  box-shadow: 0 0 10px #00ff9c30;
+}
+
+pre::before {
+  content: "terminal";
+  color: #00ff9c;
+  font-size: 12px;
+}
+
+.breadcrumbs__link {
+  color: #38bdf8;
+}
+
+.breadcrumbs__link:hover {
+  color: #00ff9c;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background: #1e3a8a;
+  color: white;
+}
+
+td,
+th {
+  padding: 10px;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff9c, #38bdf8);
+}
+
+.heroBanner {
+  padding: 80px 0;
+  text-align: center;
+  background: linear-gradient(90deg, #0f172a, #1e3a8a, #0f172a);
+  color: white;
+}
+
+.heroBanner h1 {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.heroBanner p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.grid div {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.grid div:hover {
+  transform: translateY(-5px);
+}
+
+.navbar {
+  background: linear-gradient(90deg, #0f172a, #1e3a8a);
+}
+
+.navbar__title {
+  font-weight: bold;
+  color: #00ff9c;
+}
+
+.navbar__link:hover {
+  color: #00ff9c;
+}
+
+.theme-doc-sidebar-container {
+  background: #f8fafc;
+}
+
+.menu__link--active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+pre {
+  background: #020617;
+  border-radius: 10px;
+  border: 1px solid #0ea5e9;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.sectionDark {
+  padding: 80px 0;
+  background: #f1f5f9;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ifm-font-family-base: 'Inter', sans-serif;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 30px;
+  margin-top: 40px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+code {
+  font-size: 14px;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+pre {
+  padding: 16px;
+  font-size: 14px;
+}
+
+.theme-doc-markdown {
+  max-width: 800px;
 }

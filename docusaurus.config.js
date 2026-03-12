@@ -1,157 +1,161 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
-
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: "KYPO Documentation",
+  tagline: "KYPO Cyber Range Training Platform",
+  favicon: "img/favicon.ico",
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    v4: true,
   },
 
-  // Set the production url of your site here
-url: 'https://deartomin.github.io',
-baseUrl: '/kypo---ojt.sp26/',
+  url: "https://deartomin.github.io",
+  baseUrl: "/kypo---ojt.sp26/",
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-organizationName: 'deartomin',
-projectName: 'kypo---ojt.sp26',
-deploymentBranch: 'gh-pages',
+  organizationName: "deartomin",
+  projectName: "kypo---ojt.sp26",
+  deploymentBranch: "gh-pages",
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: "throw",
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      "classic",
+      {
         docs: {
-          sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          sidebarPath: "./sidebars.js",
+          routeBasePath: "/docs",
+          editUrl: "https://github.com/deartomin/kypo---ojt.sp26",
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+
+        blog: false,
+
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
-      }),
+      },
     ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
-      colorMode: {
-        respectPrefersColorScheme: true,
+  themeConfig: {
+    image: "img/docusaurus-social-card.jpg",
+
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
+
+    navbar: {
+      title: "KYPO Docs",
+      logo: {
+        alt: "KYPO Logo",
+        src: "img/logo-fpt.png",
       },
-      navbar: {
-        title: 'My Site',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+
+      items: [
+        {
+          to: "/docs/overview",
+          label: "Tổng quan",
+          position: "left",
         },
-        items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-href: 'https://github.com/deartomin/kypo---ojt.sp26',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
-      },
-    }),
+        {
+          to: "/docs/architecture",
+          label: "Kiến trúc",
+          position: "left",
+        },
+        {
+          to: "/docs/deployment",
+          label: "Triển khai",
+          position: "left",
+        },
+        {
+          to: "/docs/user-guide",
+          label: "Hướng dẫn",
+          position: "left",
+        },
+        {
+          to: "/docs/faq",
+          label: "Câu hỏi thường gặp",
+          position: "left",
+        },
+        {
+          href: "https://github.com/deartomin/kypo---ojt.sp26",
+          label: "GitHub",
+          position: "right",
+        },
+        {
+          to: "/docs/reference-contact",
+          label: "Liên hệ",
+          position: "left",
+        },
+      ],
+    },
+
+    footer: {
+      style: "dark",
+      links: [
+        {
+          title: "Tài liệu",
+          items: [
+            { label: "Tổng quan", to: "/docs/overview" },
+            { label: "Kiến trúc hệ thống", to: "/docs/architecture" },
+            { label: "Triển khai", to: "/docs/deployment" },
+            { label: "Hướng dẫn sử dụng", to: "/docs/user-guide" },
+            { label: "Câu hỏi thường gặp", to: "/docs/faq" },
+          ],
+        },
+
+        {
+          title: "Dự án",
+          items: [
+            {
+              label: "GitHub Repository",
+              href: "https://github.com/deartomin/kypo---ojt.sp26",
+            },
+          ],
+        },
+
+        {
+          title: "Liên hệ",
+          items: [
+            { label: "FPT University", href: "https://fpt.edu.vn" },
+            { html: "FPT Security Lab" },
+            { html: "OJT Spring 2026" },
+          ],
+        },
+
+        {
+          title: "Tham khảo",
+          items: [
+            { label: "KYPO Cyber Range", href: "https://kypo.muni.cz" },
+            { label: "OpenStack", href: "https://openstack.org" },
+          ],
+        },
+      ],
+
+      copyright: `Copyright © ${new Date().getFullYear()}`,
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  },
+
+
+scripts: [
+  {
+    src: '/snow.js',
+    async: true,
+  },
+],
+
 };
 
 export default config;
