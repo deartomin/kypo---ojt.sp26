@@ -21,6 +21,10 @@ https://deartomin.github.io/kypo---ojt.sp26/
 - Hoàng Mạnh Đức (người hướng dẫn)
 - Nguyễn Thanh Tuấn (người hướng dẫn)
 - Trần Thị Ngọc Lan
+<<<<<<< HEAD
 - Phạm Thanh Loan
+=======
+- Phạm Thanh Hoan
+>>>>>>> 61e4fb17add6fcc31192ac3eeb8059863a9e8c19
 - Nguyễn Ngọc Minh
 - Phạm Ngọc Hưng

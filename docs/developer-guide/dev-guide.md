@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hướng dẫn dành cho Developer
 # 1. Thiết lập môi trường phát triển
 
@@ -26,3 +27,8 @@ Sau khi tải mã nguồn, developer cần build các service bằng Maven để
 Tiếp theo, frontend được chạy bằng NodeJS để cung cấp giao diện web cho người dùng. Khi tất cả các service hoạt động, developer có thể truy cập giao diện web để kiểm tra chức năng của hệ thống.
 
 Trong quá trình phát triển, developer có thể chỉnh sửa mã nguồn, build lại service và chạy lại hệ thống để kiểm tra các thay đổi. Điều này giúp việc phát triển và thử nghiệm các chức năng mới của KYPO được thực hiện dễ dàng.
+=======
+---
+title: Hướng dẫn dành cho Developer
+---
+>>>>>>> 61e4fb17add6fcc31192ac3eeb8059863a9e8c19

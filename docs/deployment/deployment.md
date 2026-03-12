@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hướng dẫn triển khai hệ thống
 # 1. Chuẩn bị môi trường triển khai
 
@@ -112,3 +113,21 @@ Nếu quá trình này diễn ra thành công, OpenStack sẽ tạo các virtual
 Sau khi triển khai thành công, hệ thống KYPO Cyber Range cho phép tạo các môi trường thực hành an ninh mạng một cách tự động. Người dùng có thể truy cập vào hệ thống thông qua giao diện web, tham gia các bài training và thực hành trên các sandbox được tạo ra từ các máy ảo.
 
 Việc triển khai KYPO giúp xây dựng một nền tảng cyber range phục vụ cho đào tạo, nghiên cứu và thực hành an ninh mạng một cách hiệu quả và an toàn.
+=======
+# Hướng dẫn triển khai
+
+## Yêu cầu hệ thống
+
+- Linux
+- Docker
+- PostgreSQL
+- Java
+- OpenStack
+
+## Các bước triển khai
+
+1. Clone repository
+2. Build project
+3. Cấu hình hệ thống
+4. Khởi động dịch vụ
+>>>>>>> 61e4fb17add6fcc31192ac3eeb8059863a9e8c19

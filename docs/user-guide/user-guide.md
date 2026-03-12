@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hướng dẫn sử dụng hệ thống
 # 1. Đăng nhập hệ thống
 
@@ -22,3 +23,8 @@ Sau khi sandbox được tạo thành công, hệ thống sẽ cung cấp thông
 # 5. Kết thúc bài thực hành
 
 Sau khi hoàn thành bài lab, người dùng có thể dừng sandbox hoặc thoát khỏi môi trường thực hành. Việc dừng sandbox giúp giải phóng tài nguyên của hệ thống và tránh việc sử dụng tài nguyên không cần thiết.
+=======
+---
+title: Hướng dẫn sử dụng
+---
+>>>>>>> 61e4fb17add6fcc31192ac3eeb8059863a9e8c19
