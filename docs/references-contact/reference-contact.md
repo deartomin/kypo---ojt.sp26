@@ -7,24 +7,35 @@ slug: /reference-contact
 
 Nếu cần hỗ trợ về hệ thống KYPO Sandbox, vui lòng liên hệ:
 
-**Email:** lixhayashi2005@gmail.com
+**Email:** [lixhayashi2005@gmail.com](mailto:lixhayashi2005@gmail.com)
 
-**GitHub:** https://github.com/deartomin/kypo---ojt.sp26
+**GitHub dự án:**  
+https://github.com/deartomin/kypo---ojt.sp26
 
-**Tài liệu dự án nhóm tham khảo:**  
-https://deartomin.github.io/kypo---ojt.sp26/
-https://kypo.muni.cz/  
-https://www.openstack.org/  
-https://gitlab.ics.muni.cz/muni-kypo-crp
+---
+
+## Tài liệu tham khảo
+
+- Tài liệu dự án: https://deartomin.github.io/kypo---ojt.sp26/
+- Trang KYPO: https://kypo.muni.cz/
+- CyberRange Platform Docs: https://docs.platform.cyberrange.cz/
+- OpenStack: https://www.openstack.org/
+- KYPO GitLab: https://gitlab.ics.muni.cz/muni-kypo-crp
+- CRCZP Lite DevOps: https://github.com/cyberrangecz/devops-crczp-lite
 
 ---
 
 ## Người thực hiện
 
-- Hoàng Tuấn Anh (người hướng dẫn)
-- Hoàng Mạnh Đức (người hướng dẫn)
-- Nguyễn Thanh Tuấn (người hướng dẫn)
-- Trần Thị Ngọc Lan
-- Phạm Thanh Loan
-- Nguyễn Ngọc Minh
-- Phạm Ngọc Hưng
+**Giảng viên hướng dẫn**
+
+- Hoàng Tuấn Anh
+- Hoàng Mạnh Đức
+- Nguyễn Thanh Tuấn
+
+**Nhóm thực hiện**
+
+- Trần Thị Ngọc Lan – Leader (Documentation)
+- Phạm Thanh Loan – Documentation
+- Nguyễn Ngọc Minh – Setup
+- Phạm Ngọc Hưng – Setup

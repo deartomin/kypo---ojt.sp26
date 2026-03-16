@@ -17,6 +17,8 @@ Trong đó:
 Trước tiên cần **cài đặt môi trường cơ bản theo khung có sẵn**.  
 Sau khi hệ thống hoạt động ổn định, tiến hành **cài đặt giao diện KYPO**.
 
+Bạn có thể tham khảo chi tiết trước tại đây (1 số phần tại blog không ghi rõ) [Tài liệu setup KYPO](https://drive.google.com/file/d/1hevrTVSduv5o4A1Tuuq9DAEqgdKX5p4K/view)
+
 ---
 
 # Yêu cầu hệ thống
@@ -307,7 +309,7 @@ hoặc
 python -m http.server 8080
 ```
 
-⚠ Nếu thay đổi port, cần cập nhật lại trong `images.tf`.
+⚠ Lưu ý: Nếu thay đổi port, cần cập nhật lại trong `images.tf`.
 
 ---
 
@@ -365,3 +367,19 @@ Lưu ý: Nếu cần deploy lại từ đầu:
 vagrant destroy -f
 rm -rf .vagrant
 ```
+
+## Hoàn tất triển khai
+
+Nếu màn hình hiển thị như hình dưới đây, quá trình deploy đã thành công
+
+![Deployment Done](/img/deployment-done.jpg)
+
+Sau đó chạy lệnh sau để kết nối vào mạng nội bộ, và dùng IP để truy cập vào giao diện web:
+
+```bash
+sshuttle -r sp26-ojt@100.70.135.32 10.1.2.0/24
+```
+
+⚠ Lưu ý: Thay 192.168.121.1 bằng địa chỉ IP server của bạn
+IP này có thể khác nhau tùy theo từng máy hoặc môi trường  
+Quá trình deploy có thể mất 4 -5 tiếng tùy cấu hình máy và mạng (nếu có cloud thì sẽ nhanh hơn)

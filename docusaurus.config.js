@@ -6,7 +6,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config = {
   title: "KYPO Documentation",
   tagline: "KYPO Cyber Range Training Platform",
-  favicon: "img/favicon.ico",
+  favicon: "img/logo-fpt.png",
 
   future: {
     v4: true,
@@ -54,7 +54,7 @@ const config = {
     },
 
     navbar: {
-      title: "KYPO Docs",
+      title: "KYPO Document",
       logo: {
         alt: "KYPO Logo",
         src: "img/logo-fpt.png",
@@ -65,6 +65,12 @@ const config = {
         { to: "/docs/architecture", label: "Kiến trúc", position: "left" },
         { to: "/docs/deployment", label: "Triển khai", position: "left" },
         { to: "/docs/user-guide", label: "Hướng dẫn", position: "left" },
+        {
+          to: "/docs/developer-guide/dev-guide",
+          label: "Developer Guide",
+          position: "left",
+        },
+        { to: "/docs/demo", label: "Demo", position: "left" },
         { to: "/docs/faq", label: "Câu hỏi thường gặp", position: "left" },
         { to: "/docs/reference-contact", label: "Liên hệ", position: "left" },
         {
