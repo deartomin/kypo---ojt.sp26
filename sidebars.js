@@ -7,6 +7,13 @@ const sidebars = {
     {
       type: "category",
       label: "User Guide",
+
+      // 🔥 FIX QUAN TRỌNG
+      link: {
+        type: "doc",
+        id: "user-guide/overview",
+      },
+
       items: [
         "user-guide/overview",
         "user-guide/login-logout",

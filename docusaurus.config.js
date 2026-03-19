@@ -64,7 +64,11 @@ const config = {
         { to: "/docs/overview", label: "Tổng quan", position: "left" },
         { to: "/docs/architecture", label: "Kiến trúc", position: "left" },
         { to: "/docs/deployment", label: "Triển khai", position: "left" },
-        { to: "/docs/user-guide", label: "Hướng dẫn", position: "left" },
+        {
+          to: "/docs/user-guide/overview",
+          label: "Hướng dẫn",
+          position: "left",
+        },
         {
           to: "/docs/developer-guide/dev-guide",
           label: "Developer Guide",
@@ -90,7 +94,7 @@ const config = {
             { label: "Tổng quan", to: "/docs/overview" },
             { label: "Kiến trúc hệ thống", to: "/docs/architecture" },
             { label: "Triển khai", to: "/docs/deployment" },
-            { label: "Hướng dẫn sử dụng", to: "/docs/user-guide" },
+            { label: "Hướng dẫn sử dụng", to: "/docs/user-guide/overview" },
             { label: "Câu hỏi thường gặp", to: "/docs/faq" },
           ],
         },
