@@ -85,6 +85,10 @@ wget -O kali.qcow2 https://gm7ve.upcloudobjects.com/crczp-images/kali.qcow2
 wget -O ubuntu-noble-man.qcow2 https://gm7ve.upcloudobjects.com/crczp-images/ubuntu-noble-man.qcow2
 ```
 
+```bash
+wget -O debian-12.qcow2 https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2
+```
+
 ---
 
 ## Cách khác: sử dụng croc để gửi file
