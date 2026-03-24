@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-api/training-api-test-guide" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">🧪 Hướng dẫn test API | KYPO Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://deartomin.github.io/kypo---ojt.sp26/docs/api/training-api-test-guide"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="🧪 Hướng dẫn test API | KYPO Documentation"><meta data-rh="true" name="description" content="Dữ liệu test lấy từ đâu?"><meta data-rh="true" property="og:description" content="Dữ liệu test lấy từ đâu?"><link data-rh="true" rel="icon" href="/kypo---ojt.sp26/img/logo-fpt.png"><link data-rh="true" rel="canonical" href="https://deartomin.github.io/kypo---ojt.sp26/docs/api/training-api-test-guide"><link data-rh="true" rel="alternate" href="https://deartomin.github.io/kypo---ojt.sp26/docs/api/training-api-test-guide" hreflang="en"><link data-rh="true" rel="alternate" href="https://deartomin.github.io/kypo---ojt.sp26/docs/api/training-api-test-guide" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"🧪 Hướng dẫn test API","item":"https://deartomin.github.io/kypo---ojt.sp26/docs/api/training-api-test-guide"}]}</script><link rel="stylesheet" href="/kypo---ojt.sp26/assets/css/styles.a7b5c9b1.css">
+<script src="/kypo---ojt.sp26/assets/js/runtime~main.e35feca9.js" defer="defer"></script>
+<script src="/kypo---ojt.sp26/assets/js/main.254c25ea.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/kypo---ojt.sp26/img/logo-fpt.png"><link rel="preload" as="image" href="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/kypo---ojt.sp26/"><div class="navbar__logo"><img src="/kypo---ojt.sp26/img/logo-fpt.png" alt="KYPO Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/kypo---ojt.sp26/img/logo-fpt.png" alt="KYPO Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">KYPO Document</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/deartomin/kypo---ojt.sp26" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/overview"><span title="Giới thiệu hệ thống KYPO Sandbox" class="linkLabel_WmDU">Giới thiệu hệ thống KYPO Sandbox</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/architecture"><span title="Phân tích kiến trúc KYPO Microservices Architecture" class="linkLabel_WmDU">Phân tích kiến trúc KYPO Microservices Architecture</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/deployment"><span title="Hướng dẫn triển khai KYPO" class="linkLabel_WmDU">Hướng dẫn triển khai KYPO</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/kypo---ojt.sp26/docs/user-guide/overview"><span title="User Guide" class="categoryLinkLabel_W154">User Guide</span></a><button aria-label="Expand sidebar category &#x27;User Guide&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/developer-guide/dev-guide"><span title="Hướng dẫn dành cho Developer" class="linkLabel_WmDU">Hướng dẫn dành cho Developer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/demo"><span title="Demo các triển khai" class="linkLabel_WmDU">Demo các triển khai</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/api/api-docs"><span title="API Docs" class="linkLabel_WmDU">API Docs</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/kypo---ojt.sp26/docs/api/training-api-test-guide"><span title="🧪 Hướng dẫn test API" class="linkLabel_WmDU">🧪 Hướng dẫn test API</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/faq"><span title="Các lỗi thường gặp và cách khắc phục" class="linkLabel_WmDU">Các lỗi thường gặp và cách khắc phục</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/kypo---ojt.sp26/docs/reference-contact"><span title="Liên hệ" class="linkLabel_WmDU">Liên hệ</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/kypo---ojt.sp26/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">🧪 Hướng dẫn test API</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Hướng dẫn test Training API</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="dữ-liệu-test-lấy-từ-đâu">Dữ liệu test lấy từ đâu?<a href="#dữ-liệu-test-lấy-từ-đâu" class="hash-link" aria-label="Direct link to Dữ liệu test lấy từ đâu?" title="Direct link to Dữ liệu test lấy từ đâu?" translate="no">​</a></h2>
+<p>Dữ liệu test <strong>không lấy từ Docusaurus</strong> và cũng <strong>không tự sinh ra từ Swagger UI</strong>.</p>
+<p>Khi bấm <code>Execute</code>, trang API Docs sẽ gọi API thật tới backend:</p>
+<ul>
+<li class="">Base URL: <code>http://localhost:8083/training/api/v1</code></li>
+</ul>
+<p>Backend này sẽ đọc dữ liệu từ:</p>
+<ol>
+<li class=""><strong>Database của service training</strong></li>
+</ol>
+<ul>
+<li class="">Nơi lưu các dữ liệu chính như:<!-- -->
+<ul>
+<li class=""><code>training_definition</code></li>
+<li class=""><code>training_instance</code></li>
+<li class=""><code>training_run</code></li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li class=""><strong>Các service phụ trợ</strong></li>
+</ol>
+<ul>
+<li class="">Dùng cho các chức năng liên quan sandbox, answers, logs:<!-- -->
+<ul>
+<li class="">sandbox/openstack service</li>
+<li class="">answers-storage service</li>
+<li class="">elasticsearch service</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="nếu-không-muốn-dùng-dữ-liệu-có-sẵn-trong-db-thì-làm-thế-nào">Nếu không muốn dùng dữ liệu có sẵn trong DB thì làm thế nào?<a href="#nếu-không-muốn-dùng-dữ-liệu-có-sẵn-trong-db-thì-làm-thế-nào" class="hash-link" aria-label="Direct link to Nếu không muốn dùng dữ liệu có sẵn trong DB thì làm thế nào?" title="Direct link to Nếu không muốn dùng dữ liệu có sẵn trong DB thì làm thế nào?" translate="no">​</a></h2>
+<p>Cách đúng là:</p>
+<ul>
+<li class=""><strong>tự tạo dữ liệu mới bằng API</strong></li>
+<li class="">sau đó dùng chính dữ liệu vừa tạo để test các API khác</li>
+</ul>
+<p>Không cần vào DB để lấy tay.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="luồng-test-đơn-giản-nhất">Luồng test đơn giản nhất<a href="#luồng-test-đơn-giản-nhất" class="hash-link" aria-label="Direct link to Luồng test đơn giản nhất" title="Direct link to Luồng test đơn giản nhất" translate="no">​</a></h2>
+<p>Thứ tự nên test:</p>
+<ol>
+<li class="">Tạo <code>training definition</code></li>
+<li class="">Tạo <code>training instance</code></li>
+<li class="">Access <code>training run</code></li>
+<li class="">Dùng các <code>id</code> vừa tạo để gọi các API <code>GET</code>, <code>PUT</code>, <code>PATCH</code></li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="điều-kiện-trước-khi-test">Điều kiện trước khi test<a href="#điều-kiện-trước-khi-test" class="hash-link" aria-label="Direct link to Điều kiện trước khi test" title="Direct link to Điều kiện trước khi test" translate="no">​</a></h2>
+<p>Cần chuẩn bị:</p>
+<ul>
+<li class="">backend training đang chạy tại <code>localhost:8083</code></li>
+<li class="">có bearer token hợp lệ</li>
+<li class="">bấm <code>Authorize</code> và nhập:</li>
+</ul>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Bearer &lt;your_token&gt;</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="kịch-bản-1-test-dynamic-flag-bằng-dữ-liệu-tự-tạo">Kịch bản 1: Test dynamic flag bằng dữ liệu tự tạo<a href="#kịch-bản-1-test-dynamic-flag-bằng-dữ-liệu-tự-tạo" class="hash-link" aria-label="Direct link to Kịch bản 1: Test dynamic flag bằng dữ liệu tự tạo" title="Direct link to Kịch bản 1: Test dynamic flag bằng dữ liệu tự tạo" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-1-tạo-training-definition">Bước 1. Tạo training definition<a href="#bước-1-tạo-training-definition" class="hash-link" aria-label="Direct link to Bước 1. Tạo training definition" title="Direct link to Bước 1. Tạo training definition" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>POST /training-definitions</code></li>
+</ul>
+<p>Body mẫu:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;title&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;Demo Dynamic Flag&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;description&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;Test dynamic flag&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;prerequisites&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">&quot;basic linux&quot;</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;outcomes&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">&quot;understand rotating flags&quot;</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;state&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;UNRELEASED&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;beta_testing_group&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token property" style="color:#36acaa">&quot;id&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">14</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;default_content&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;enable_dynamic_flag&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;flag_change_interval&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">5</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;initial_secret&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;secret123&quot;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<p>Sau khi gọi xong, lấy từ response:</p>
+<ul>
+<li class=""><code>id</code> -&gt; dùng làm <code>definition_id</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-2-test-đọc-training-definition">Bước 2. Test đọc training definition<a href="#bước-2-test-đọc-training-definition" class="hash-link" aria-label="Direct link to Bước 2. Test đọc training definition" title="Direct link to Bước 2. Test đọc training definition" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /training-definitions/{definition_id}</code></li>
+</ul>
+<p>Ví dụ:</p>
+<ul>
+<li class=""><code>GET /training-definitions/1</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-3-test-đọc-dynamic-flag-config">Bước 3. Test đọc dynamic flag config<a href="#bước-3-test-đọc-dynamic-flag-config" class="hash-link" aria-label="Direct link to Bước 3. Test đọc dynamic flag config" title="Direct link to Bước 3. Test đọc dynamic flag config" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /dynamic-flags/{definition_id}</code></li>
+</ul>
+<p>Kỳ vọng:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;enable_dynamic_flag&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;flag_change_interval&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">5</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;initial_secret&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;secret123&quot;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-4-test-cập-nhật-dynamic-flag">Bước 4. Test cập nhật dynamic flag<a href="#bước-4-test-cập-nhật-dynamic-flag" class="hash-link" aria-label="Direct link to Bước 4. Test cập nhật dynamic flag" title="Direct link to Bước 4. Test cập nhật dynamic flag" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>PUT /dynamic-flags/{definition_id}</code></li>
+</ul>
+<p>Body:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;enable_dynamic_flag&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;flag_change_interval&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">10</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;initial_secret&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;secret456&quot;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-5-test-lấy-current-flag">Bước 5. Test lấy current flag<a href="#bước-5-test-lấy-current-flag" class="hash-link" aria-label="Direct link to Bước 5. Test lấy current flag" title="Direct link to Bước 5. Test lấy current flag" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /dynamic-flags/{definition_id}/current-flag</code></li>
+</ul>
+<p>Lưu ý:</p>
+<ul>
+<li class="">API này trả về <code>text/plain</code></li>
+<li class="">Ví dụ response:</li>
+</ul>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">FLAG{abc123xyz}</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="kịch-bản-2-test-training-instance-bằng-dữ-liệu-tự-tạo">Kịch bản 2: Test training instance bằng dữ liệu tự tạo<a href="#kịch-bản-2-test-training-instance-bằng-dữ-liệu-tự-tạo" class="hash-link" aria-label="Direct link to Kịch bản 2: Test training instance bằng dữ liệu tự tạo" title="Direct link to Kịch bản 2: Test training instance bằng dữ liệu tự tạo" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-1-tạo-training-definition-trước">Bước 1. Tạo training definition trước<a href="#bước-1-tạo-training-definition-trước" class="hash-link" aria-label="Direct link to Bước 1. Tạo training definition trước" title="Direct link to Bước 1. Tạo training definition trước" translate="no">​</a></h3>
+<p>Nếu chưa có <code>definition_id</code>, làm lại bước <code>POST /training-definitions</code> ở trên.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-2-tạo-training-instance">Bước 2. Tạo training instance<a href="#bước-2-tạo-training-instance" class="hash-link" aria-label="Direct link to Bước 2. Tạo training instance" title="Direct link to Bước 2. Tạo training instance" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>POST /training-instances</code></li>
+</ul>
+<p>Body mẫu:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;start_time&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;2026-03-23T10:00:00.000Z&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;end_time&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;2026-03-23T12:00:00.000Z&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;title&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;Instance tu tao de test&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;access_token&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;instance-demo-001&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;training_definition_id&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">1</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;pool_id&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token null keyword" style="color:#00009f">null</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;local_environment&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;sandbox_definition_id&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token null keyword" style="color:#00009f">null</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;show_stepper_bar&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">&quot;backward_mode&quot;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<p>Sau khi gọi xong, lấy từ response:</p>
+<ul>
+<li class=""><code>id</code> -&gt; dùng làm <code>instance_id</code></li>
+<li class=""><code>access_token</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-3-test-lấy-danh-sách-training-instances">Bước 3. Test lấy danh sách training instances<a href="#bước-3-test-lấy-danh-sách-training-instances" class="hash-link" aria-label="Direct link to Bước 3. Test lấy danh sách training instances" title="Direct link to Bước 3. Test lấy danh sách training instances" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /training-instances</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-4-test-lấy-chi-tiết-training-instance">Bước 4. Test lấy chi tiết training instance<a href="#bước-4-test-lấy-chi-tiết-training-instance" class="hash-link" aria-label="Direct link to Bước 4. Test lấy chi tiết training instance" title="Direct link to Bước 4. Test lấy chi tiết training instance" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /training-instances/{instance_id}</code></li>
+</ul>
+<p>Ví dụ:</p>
+<ul>
+<li class=""><code>GET /training-instances/100</code></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="kịch-bản-3-test-training-run-bằng-dữ-liệu-tự-tạo">Kịch bản 3: Test training run bằng dữ liệu tự tạo<a href="#kịch-bản-3-test-training-run-bằng-dữ-liệu-tự-tạo" class="hash-link" aria-label="Direct link to Kịch bản 3: Test training run bằng dữ liệu tự tạo" title="Direct link to Kịch bản 3: Test training run bằng dữ liệu tự tạo" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="trước-khi-test">Trước khi test<a href="#trước-khi-test" class="hash-link" aria-label="Direct link to Trước khi test" title="Direct link to Trước khi test" translate="no">​</a></h3>
+<p>Cần có:</p>
+<ul>
+<li class="">một <code>training_instance</code></li>
+<li class=""><code>access_token</code> của instance đó</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-1-access-training-run">Bước 1. Access training run<a href="#bước-1-access-training-run" class="hash-link" aria-label="Direct link to Bước 1. Access training run" title="Direct link to Bước 1. Access training run" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>POST /training-runs?access_token=instance-demo-001</code></li>
+</ul>
+<p>Sau khi gọi xong, lấy từ response:</p>
+<ul>
+<li class=""><code>training_run_id</code> -&gt; dùng làm <code>run_id</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-2-test-lấy-run-theo-id">Bước 2. Test lấy run theo id<a href="#bước-2-test-lấy-run-theo-id" class="hash-link" aria-label="Direct link to Bước 2. Test lấy run theo id" title="Direct link to Bước 2. Test lấy run theo id" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /training-runs/{run_id}</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bước-3-test-lấy-run-theo-training-instance">Bước 3. Test lấy run theo training instance<a href="#bước-3-test-lấy-run-theo-training-instance" class="hash-link" aria-label="Direct link to Bước 3. Test lấy run theo training instance" title="Direct link to Bước 3. Test lấy run theo training instance" translate="no">​</a></h3>
+<p>API:</p>
+<ul>
+<li class=""><code>GET /training-instances/{instance_id}/training-runs</code></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="khi-nào-cần-service-phụ-trợ">Khi nào cần service phụ trợ?<a href="#khi-nào-cần-service-phụ-trợ" class="hash-link" aria-label="Direct link to Khi nào cần service phụ trợ?" title="Direct link to Khi nào cần service phụ trợ?" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="test-được-ngay-ít-phụ-thuộc">Test được ngay, ít phụ thuộc<a href="#test-được-ngay-ít-phụ-thuộc" class="hash-link" aria-label="Direct link to Test được ngay, ít phụ thuộc" title="Direct link to Test được ngay, ít phụ thuộc" translate="no">​</a></h3>
+<p>Các API sau chủ yếu chỉ cần backend training + database:</p>
+<ul>
+<li class=""><code>POST /training-definitions</code></li>
+<li class=""><code>GET /training-definitions/{definition_id}</code></li>
+<li class=""><code>PUT /training-definitions</code></li>
+<li class=""><code>GET /dynamic-flags/{definition_id}</code></li>
+<li class=""><code>PUT /dynamic-flags/{definition_id}</code></li>
+<li class=""><code>GET /dynamic-flags/{definition_id}/current-flag</code></li>
+<li class=""><code>POST /training-instances</code> với:<!-- -->
+<ul>
+<li class=""><code>pool_id = null</code></li>
+<li class=""><code>local_environment = false</code></li>
+<li class=""><code>sandbox_definition_id = null</code></li>
+</ul>
+</li>
+<li class=""><code>GET /training-instances</code></li>
+<li class=""><code>GET /training-instances/{instance_id}</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="có-thể-cần-thêm-sandbox-service">Có thể cần thêm sandbox service<a href="#có-thể-cần-thêm-sandbox-service" class="hash-link" aria-label="Direct link to Có thể cần thêm sandbox service" title="Direct link to Có thể cần thêm sandbox service" translate="no">​</a></h3>
+<p>Các API sau có thể phụ thuộc hệ thống sandbox/pool:</p>
+<ul>
+<li class=""><code>PATCH /training-instances/{instance_id}/assign-pool</code></li>
+<li class=""><code>PATCH /training-instances/{instance_id}/unassign-pool</code></li>
+<li class=""><code>POST /training-runs</code></li>
+<li class="">các trường như:<!-- -->
+<ul>
+<li class=""><code>sandbox_instance_ref_id</code></li>
+<li class=""><code>sandbox_definition_id</code></li>
+<li class=""><code>pool_id</code></li>
+</ul>
+</li>
+</ul>
+<p>Nếu chưa có các service phụ đang chạy, các API này có thể trả:</p>
+<ul>
+<li class=""><code>404</code></li>
+<li class=""><code>409</code></li>
+<li class=""><code>500</code></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cách-hiểu-đơn-giản-nhất">Cách hiểu đơn giản nhất<a href="#cách-hiểu-đơn-giản-nhất" class="hash-link" aria-label="Direct link to Cách hiểu đơn giản nhất" title="Direct link to Cách hiểu đơn giản nhất" translate="no">​</a></h2>
+<p>Muốn test bằng dữ liệu của mình thì làm như sau:</p>
+<ol>
+<li class="">Tự tạo một bản ghi mới bằng API <code>POST</code></li>
+<li class="">Copy <code>id</code> từ response</li>
+<li class="">Dùng <code>id</code> đó để test API <code>GET/PUT/PATCH</code></li>
+</ol>
+<p>Nói ngắn gọn:</p>
+<ul>
+<li class=""><strong>không cần lấy dữ liệu có sẵn trong DB</strong></li>
+<li class=""><strong>chỉ cần tự tạo dữ liệu trước bằng API</strong></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bộ-dữ-liệu-khởi-đầu-khuyến-nghị">Bộ dữ liệu khởi đầu khuyến nghị<a href="#bộ-dữ-liệu-khởi-đầu-khuyến-nghị" class="hash-link" aria-label="Direct link to Bộ dữ liệu khởi đầu khuyến nghị" title="Direct link to Bộ dữ liệu khởi đầu khuyến nghị" translate="no">​</a></h2>
+<p>Nếu muốn test dễ nhất, hãy bắt đầu bằng:</p>
+<ol>
+<li class="">Tạo <code>training definition</code></li>
+<li class="">Test <code>dynamic flag</code></li>
+<li class="">Tạo <code>training instance</code> không gắn pool</li>
+<li class="">Test các API đọc dữ liệu instance</li>
+</ol>
+<p>Sau đó mới test tiếp phần sandbox/pool/run nếu môi trường local đã có đủ service phụ.</p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/kypo---ojt.sp26/docs/api/api-docs"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">API Docs</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/kypo---ojt.sp26/docs/faq"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Các lỗi thường gặp và cách khắc phục</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#dữ-liệu-test-lấy-từ-đâu" class="table-of-contents__link toc-highlight">Dữ liệu test lấy từ đâu?</a></li><li><a href="#nếu-không-muốn-dùng-dữ-liệu-có-sẵn-trong-db-thì-làm-thế-nào" class="table-of-contents__link toc-highlight">Nếu không muốn dùng dữ liệu có sẵn trong DB thì làm thế nào?</a></li><li><a href="#luồng-test-đơn-giản-nhất" class="table-of-contents__link toc-highlight">Luồng test đơn giản nhất</a></li><li><a href="#điều-kiện-trước-khi-test" class="table-of-contents__link toc-highlight">Điều kiện trước khi test</a></li><li><a href="#kịch-bản-1-test-dynamic-flag-bằng-dữ-liệu-tự-tạo" class="table-of-contents__link toc-highlight">Kịch bản 1: Test dynamic flag bằng dữ liệu tự tạo</a><ul><li><a href="#bước-1-tạo-training-definition" class="table-of-contents__link toc-highlight">Bước 1. Tạo training definition</a></li><li><a href="#bước-2-test-đọc-training-definition" class="table-of-contents__link toc-highlight">Bước 2. Test đọc training definition</a></li><li><a href="#bước-3-test-đọc-dynamic-flag-config" class="table-of-contents__link toc-highlight">Bước 3. Test đọc dynamic flag config</a></li><li><a href="#bước-4-test-cập-nhật-dynamic-flag" class="table-of-contents__link toc-highlight">Bước 4. Test cập nhật dynamic flag</a></li><li><a href="#bước-5-test-lấy-current-flag" class="table-of-contents__link toc-highlight">Bước 5. Test lấy current flag</a></li></ul></li><li><a href="#kịch-bản-2-test-training-instance-bằng-dữ-liệu-tự-tạo" class="table-of-contents__link toc-highlight">Kịch bản 2: Test training instance bằng dữ liệu tự tạo</a><ul><li><a href="#bước-1-tạo-training-definition-trước" class="table-of-contents__link toc-highlight">Bước 1. Tạo training definition trước</a></li><li><a href="#bước-2-tạo-training-instance" class="table-of-contents__link toc-highlight">Bước 2. Tạo training instance</a></li><li><a href="#bước-3-test-lấy-danh-sách-training-instances" class="table-of-contents__link toc-highlight">Bước 3. Test lấy danh sách training instances</a></li><li><a href="#bước-4-test-lấy-chi-tiết-training-instance" class="table-of-contents__link toc-highlight">Bước 4. Test lấy chi tiết training instance</a></li></ul></li><li><a href="#kịch-bản-3-test-training-run-bằng-dữ-liệu-tự-tạo" class="table-of-contents__link toc-highlight">Kịch bản 3: Test training run bằng dữ liệu tự tạo</a><ul><li><a href="#trước-khi-test" class="table-of-contents__link toc-highlight">Trước khi test</a></li><li><a href="#bước-1-access-training-run" class="table-of-contents__link toc-highlight">Bước 1. Access training run</a></li><li><a href="#bước-2-test-lấy-run-theo-id" class="table-of-contents__link toc-highlight">Bước 2. Test lấy run theo id</a></li><li><a href="#bước-3-test-lấy-run-theo-training-instance" class="table-of-contents__link toc-highlight">Bước 3. Test lấy run theo training instance</a></li></ul></li><li><a href="#khi-nào-cần-service-phụ-trợ" class="table-of-contents__link toc-highlight">Khi nào cần service phụ trợ?</a><ul><li><a href="#test-được-ngay-ít-phụ-thuộc" class="table-of-contents__link toc-highlight">Test được ngay, ít phụ thuộc</a></li><li><a href="#có-thể-cần-thêm-sandbox-service" class="table-of-contents__link toc-highlight">Có thể cần thêm sandbox service</a></li></ul></li><li><a href="#cách-hiểu-đơn-giản-nhất" class="table-of-contents__link toc-highlight">Cách hiểu đơn giản nhất</a></li><li><a href="#bộ-dữ-liệu-khởi-đầu-khuyến-nghị" class="table-of-contents__link toc-highlight">Bộ dữ liệu khởi đầu khuyến nghị</a></li></ul></div></div></div></div></main></div></div></div><img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="sticker" style="position:fixed;bottom:20px;right:20px;width:100px;cursor:pointer;z-index:9999;transition:all 0.2s ease;transform:scale(1)"></div>
+</body>
+</html>
