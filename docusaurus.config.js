@@ -8,10 +8,14 @@ const config = {
   tagline: "KYPO Cyber Range Training Platform",
   favicon: "img/logo-fpt.png",
 
-  url: "http://localhost:3000",
-  baseUrl: "/",
+  url: "https://deartomin.github.io",
+  baseUrl: "/kypo---ojt.sp26/",
+
+  organizationName: "deartomin",
+  projectName: "kypo---ojt.sp26",
 
   onBrokenLinks: "throw",
+  trailingSlash: false,
 
   i18n: {
     defaultLocale: "en",
