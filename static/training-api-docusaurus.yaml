@@ -1,0 +1,1212 @@
+openapi: 3.0.3
+info:
+  title: Training API Reference for Docusaurus
+  version: 1.0.0
+  description: |
+    Curated OpenAPI document for the Training service endpoints related to sandbox usage,
+    training instances, training runs, and dynamic flags.
+
+    Notes:
+    - The API uses snake_case JSON fields.
+    - Bearer authentication is passed via the `Authorization` header.
+    - The `current-flag` endpoint returns `text/plain`, not JSON.
+servers:
+  - url: http://localhost:8083/training/api/v1
+    description: Local development server
+tags:
+  - name: Training Instances
+    description: APIs for creating and managing training instances and pool assignment.
+  - name: Training Runs
+    description: APIs for accessing runs and retrieving sandbox-related run data.
+  - name: Training Definitions
+    description: APIs for creating and updating training definitions with dynamic flags.
+  - name: Dynamic Flags
+    description: APIs for reading and updating dynamic flag configuration.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Use format `Bearer {token}`.
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          example: 1711182000000
+        status:
+          type: string
+          example: 404 NOT_FOUND
+        message:
+          type: string
+          example: The requested resource was not found.
+        errors:
+          type: array
+          items:
+            type: string
+          example:
+            - The training instance has not been found.
+        path:
+          type: string
+          example: /training/api/v1/training-instances/999
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 20
+        total_elements:
+          type: integer
+          example: 1
+        total_pages:
+          type: integer
+          example: 1
+    BetaTestingGroupRef:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 14
+    UserRef:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 7
+        full_name:
+          type: string
+          example: John Doe
+        given_name:
+          type: string
+          example: John
+        family_name:
+          type: string
+          example: Doe
+        sub:
+          type: string
+          example: user-123
+    TrainingDefinitionSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: Photo Hunter
+        description:
+          type: string
+          example: Description of Photo Hunter
+        prerequisites:
+          type: array
+          items:
+            type: string
+          example:
+            - HTML
+            - http protocol
+        outcomes:
+          type: array
+          items:
+            type: string
+          example:
+            - Recognize common phishing indicators
+        state:
+          type: string
+          enum:
+            - PRIVATED
+            - RELEASED
+            - ARCHIVED
+            - UNRELEASED
+          example: UNRELEASED
+        beta_testing_group_id:
+          type: integer
+          format: int64
+          example: 14
+        can_be_archived:
+          type: boolean
+          example: false
+        estimated_duration:
+          type: integer
+          format: int64
+          example: 45
+        last_edited:
+          type: string
+          format: date-time
+          example: 2026-03-23T09:55:00Z
+        last_edited_by:
+          type: string
+          example: admin
+        created_at:
+          type: string
+          format: date-time
+          example: 2026-03-23T09:30:00Z
+        enable_dynamic_flag:
+          type: boolean
+          example: true
+        flag_change_interval:
+          type: integer
+          minimum: 1
+          example: 5
+        initial_secret:
+          type: string
+          example: secret123
+    TrainingDefinitionById:
+      allOf:
+        - $ref: '#/components/schemas/TrainingDefinitionSummary'
+        - type: object
+          properties:
+            levels:
+              type: array
+              items:
+                type: object
+              example: []
+            has_reference_solution:
+              type: boolean
+              example: false
+    TrainingDefinitionCreate:
+      type: object
+      required:
+        - title
+        - state
+      properties:
+        title:
+          type: string
+          example: Photo Hunter
+        description:
+          type: string
+          example: Description of Photo Hunter
+        prerequisites:
+          type: array
+          items:
+            type: string
+          example:
+            - HTML
+            - http protocol
+        outcomes:
+          type: array
+          items:
+            type: string
+          example:
+            - Recognize common phishing indicators
+        state:
+          type: string
+          enum:
+            - PRIVATED
+            - RELEASED
+            - ARCHIVED
+            - UNRELEASED
+          example: UNRELEASED
+        beta_testing_group:
+          $ref: '#/components/schemas/BetaTestingGroupRef'
+        default_content:
+          type: boolean
+          example: false
+        enable_dynamic_flag:
+          type: boolean
+          example: true
+        flag_change_interval:
+          type: integer
+          minimum: 1
+          example: 5
+        initial_secret:
+          type: string
+          example: secret123
+      example:
+        title: Photo Hunter
+        description: Description of Photo Hunter
+        prerequisites:
+          - HTML
+          - http protocol
+        outcomes:
+          - Recognize common phishing indicators
+        state: UNRELEASED
+        beta_testing_group:
+          id: 14
+        default_content: false
+        enable_dynamic_flag: true
+        flag_change_interval: 5
+        initial_secret: secret123
+    TrainingDefinitionUpdate:
+      allOf:
+        - $ref: '#/components/schemas/TrainingDefinitionCreate'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              format: int64
+              example: 1
+            show_stepper_bar:
+              type: boolean
+              example: true
+      example:
+        id: 1
+        title: Photo Hunter Updated
+        description: Updated description
+        prerequisites:
+          - phishing
+        outcomes: []
+        state: UNRELEASED
+        beta_testing_group:
+          id: 14
+        show_stepper_bar: true
+        enable_dynamic_flag: true
+        flag_change_interval: 10
+        initial_secret: secret456
+    DynamicFlagConfig:
+      type: object
+      properties:
+        enable_dynamic_flag:
+          type: boolean
+          example: true
+        flag_change_interval:
+          type: integer
+          minimum: 1
+          example: 5
+        initial_secret:
+          type: string
+          example: secret123
+      example:
+        enable_dynamic_flag: true
+        flag_change_interval: 5
+        initial_secret: secret123
+    TrainingInstanceBasicInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100
+        start_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T10:00:00Z
+        end_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T12:00:00Z
+        title:
+          type: string
+          example: Sandbox Training Instance
+        access_token:
+          type: string
+          example: sandbox-2026
+        pool_id:
+          type: integer
+          format: int64
+          nullable: true
+          example: 10
+        local_environment:
+          type: boolean
+          example: true
+        sandbox_definition_id:
+          type: integer
+          format: int64
+          nullable: true
+          example: 5
+        show_stepper_bar:
+          type: boolean
+          example: true
+        backward_mode:
+          type: boolean
+          example: true
+    TrainingInstanceCreate:
+      type: object
+      required:
+        - start_time
+        - end_time
+        - title
+        - access_token
+        - training_definition_id
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T10:00:00.000Z
+        end_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T12:00:00.000Z
+        title:
+          type: string
+          example: Sandbox Training Instance
+        access_token:
+          type: string
+          example: sandbox-2026
+        training_definition_id:
+          type: integer
+          format: int64
+          example: 1
+        pool_id:
+          type: integer
+          format: int64
+          nullable: true
+          example: 10
+        local_environment:
+          type: boolean
+          example: true
+        sandbox_definition_id:
+          type: integer
+          format: int64
+          nullable: true
+          example: 5
+        show_stepper_bar:
+          type: boolean
+          example: true
+        backward_mode:
+          type: boolean
+          example: true
+      example:
+        start_time: 2026-03-23T10:00:00.000Z
+        end_time: 2026-03-23T12:00:00.000Z
+        title: Sandbox Training Instance
+        access_token: sandbox-2026
+        training_definition_id: 1
+        pool_id: 10
+        local_environment: true
+        sandbox_definition_id: 5
+        show_stepper_bar: true
+        backward_mode: true
+    TrainingInstanceUpdate:
+      allOf:
+        - $ref: '#/components/schemas/TrainingInstanceCreate'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              format: int64
+              example: 100
+      example:
+        id: 100
+        start_time: 2026-03-23T10:00:00.000Z
+        end_time: 2026-03-23T13:00:00.000Z
+        title: Sandbox Training Instance Updated
+        access_token: sandbox-2026-new
+        training_definition_id: 1
+        pool_id: 10
+        local_environment: true
+        sandbox_definition_id: 5
+        show_stepper_bar: true
+        backward_mode: false
+    TrainingInstance:
+      allOf:
+        - $ref: '#/components/schemas/TrainingInstanceBasicInfo'
+        - type: object
+          properties:
+            training_definition:
+              $ref: '#/components/schemas/TrainingDefinitionById'
+            sandboxes_with_training_run:
+              type: array
+              items:
+                type: string
+              example:
+                - sandbox-ref-1
+                - sandbox-ref-2
+            last_edited:
+              type: string
+              format: date-time
+              example: 2026-03-23T09:55:00Z
+            last_edited_by:
+              type: string
+              example: admin
+    TrainingInstanceListItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100
+        start_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T10:00:00Z
+        end_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T12:00:00Z
+        title:
+          type: string
+          example: Sandbox Training Instance
+        training_definition:
+          $ref: '#/components/schemas/TrainingDefinitionSummary'
+        access_token:
+          type: string
+          example: sandbox-2026
+        pool_id:
+          type: integer
+          format: int64
+          example: 10
+        last_edited:
+          type: string
+          format: date-time
+          example: 2026-03-23T09:55:00Z
+        last_edited_by:
+          type: string
+          example: admin
+        local_environment:
+          type: boolean
+          example: true
+        show_stepper_bar:
+          type: boolean
+          example: true
+        backward_mode:
+          type: boolean
+          example: true
+    TrainingInstanceAssignPool:
+      type: object
+      required:
+        - pool_id
+      properties:
+        pool_id:
+          type: integer
+          format: int64
+          example: 10
+      example:
+        pool_id: 10
+    TrainingInstancesPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrainingInstanceListItem'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    BasicLevelInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 300
+        title:
+          type: string
+          example: Level 1
+    TakenHint:
+      type: object
+      properties:
+        hint_id:
+          type: integer
+          format: int64
+          example: 11
+        title:
+          type: string
+          example: Hint 1
+    AccessTrainingRun:
+      type: object
+      properties:
+        training_run_id:
+          type: integer
+          format: int64
+          example: 200
+        show_stepper_bar:
+          type: boolean
+          example: true
+        sandbox_instance_ref_id:
+          type: string
+          example: sandbox-ref-1
+        abstract_level_dto:
+          type: object
+          example:
+            id: 300
+            title: Level 1
+        info_about_levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicLevelInfo'
+        instance_id:
+          type: integer
+          format: int64
+          example: 100
+        start_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T10:01:00Z
+        taken_solution:
+          type: string
+          nullable: true
+          example: null
+        taken_hints:
+          type: array
+          items:
+            $ref: '#/components/schemas/TakenHint'
+        local_environment:
+          type: boolean
+          example: true
+        sandbox_definition_id:
+          type: integer
+          format: int64
+          example: 5
+        backward_mode:
+          type: boolean
+          example: true
+        level_answered:
+          type: boolean
+          example: false
+    TrainingRun:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 200
+        start_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T10:01:00Z
+        end_time:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        event_log_reference:
+          type: string
+          nullable: true
+          example: event-log-1
+        state:
+          type: string
+          enum:
+            - RUNNING
+            - FINISHED
+            - ARCHIVED
+          example: RUNNING
+        sandbox_instance_ref_id:
+          type: string
+          example: sandbox-ref-1
+        sandbox_instance_allocation_id:
+          type: integer
+          nullable: true
+          example: 321
+        participant_ref:
+          $ref: '#/components/schemas/UserRef'
+        event_logging_state:
+          type: boolean
+          example: true
+        command_logging_state:
+          type: boolean
+          example: true
+        has_detection_event:
+          type: boolean
+          example: false
+    TrainingRunById:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 200
+        start_time:
+          type: string
+          format: date-time
+          example: 2026-03-23T10:01:00Z
+        end_time:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        event_log_reference:
+          type: string
+          nullable: true
+          example: event-log-1
+        state:
+          type: string
+          enum:
+            - RUNNING
+            - FINISHED
+            - ARCHIVED
+          example: RUNNING
+        sandbox_instance_ref_id:
+          type: string
+          example: sandbox-ref-1
+        participant_ref:
+          $ref: '#/components/schemas/UserRef'
+        definition_id:
+          type: integer
+          format: int64
+          example: 1
+        instance_id:
+          type: integer
+          format: int64
+          example: 100
+        previous_sandbox_instance_ref_id:
+          type: string
+          nullable: true
+          example: sandbox-ref-previous
+    TrainingRunsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrainingRun'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+paths:
+  /training-definitions:
+    post:
+      tags:
+        - Training Definitions
+      summary: Create training definition
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingDefinitionCreate'
+      responses:
+        '200':
+          description: The training definition has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingDefinitionById'
+        '400':
+          description: The provided training definition is not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Unexpected condition was encountered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      tags:
+        - Training Definitions
+      summary: Update training definition
+      description: Only unreleased training definition can be updated.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingDefinitionUpdate'
+      responses:
+        '204':
+          description: The training definition has been updated.
+        '400':
+          description: The provided training definition is not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: The training definition has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '409':
+          description: Cannot edit released or archived training definition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-definitions/{definition_id}:
+    get:
+      tags:
+        - Training Definitions
+      summary: Get training definition by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: definition_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional Squiggly fields filter.
+      responses:
+        '200':
+          description: The training definition has been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingDefinitionById'
+        '404':
+          description: The training definition has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /dynamic-flags/{definition_id}:
+    get:
+      tags:
+        - Dynamic Flags
+      summary: Get dynamic flag configuration
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: definition_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The configuration has been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicFlagConfig'
+        '404':
+          description: The training definition has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      tags:
+        - Dynamic Flags
+      summary: Update dynamic flag configuration
+      description: |
+        When `enable_dynamic_flag` is `true`, both `flag_change_interval` and
+        `initial_secret` must be provided.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: definition_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicFlagConfig'
+      responses:
+        '200':
+          description: The configuration has been updated.
+        '400':
+          description: The provided configuration is not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: The training definition has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /dynamic-flags/{definition_id}/current-flag:
+    get:
+      tags:
+        - Dynamic Flags
+      summary: Get current dynamic flag
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: definition_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The current flag has been retrieved.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: FLAG{abc123xyz}
+        '400':
+          description: Dynamic flag is not enabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: The training definition has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-instances:
+    get:
+      tags:
+        - Training Instances
+      summary: Get all training instances
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            example: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            example: 20
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional Squiggly fields filter.
+      responses:
+        '200':
+          description: The training instances have been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingInstancesPage'
+        '500':
+          description: Unexpected condition was encountered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    post:
+      tags:
+        - Training Instances
+      summary: Create training instance
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional Squiggly fields filter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingInstanceCreate'
+      responses:
+        '200':
+          description: The training instance has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingInstance'
+        '400':
+          description: The provided training instance is not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: The training definition has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '409':
+          description: The training instance start time and end time are not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    put:
+      tags:
+        - Training Instances
+      summary: Update training instance
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingInstanceUpdate'
+      responses:
+        '200':
+          description: The training instance has been updated and a new token may be returned.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: sandbox-2026-new
+        '404':
+          description: The training instance has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '409':
+          description: The training instance start time and end time are not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-instances/{instance_id}:
+    get:
+      tags:
+        - Training Instances
+      summary: Get training instance by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: instance_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: fields
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The training instance has been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingInstance'
+        '404':
+          description: The training instance has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-instances/access/{pool_id}:
+    get:
+      tags:
+        - Training Instances
+      summary: Get training instance access token by pool id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: pool_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The access token has been found.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: sandbox-2026
+        '404':
+          description: The access token has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-instances/{instance_id}/assign-pool:
+    patch:
+      tags:
+        - Training Instances
+      summary: Assign pool to training instance
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: instance_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingInstanceAssignPool'
+      responses:
+        '200':
+          description: The training instance has been updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingInstanceBasicInfo'
+        '400':
+          description: The provided training instance is not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: The training instance has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '409':
+          description: The training instance cannot be updated for the stated reason.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-instances/{instance_id}/unassign-pool:
+    patch:
+      tags:
+        - Training Instances
+      summary: Unassign pool from training instance
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: instance_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The pool has been unassigned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingInstanceBasicInfo'
+        '409':
+          description: The training instance has no assigned pool.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-instances/{instance_id}/training-runs:
+    get:
+      tags:
+        - Training Instances
+        - Training Runs
+      summary: Get all training runs of specific training instance
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: instance_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+        - name: page
+          in: query
+          schema:
+            type: integer
+            example: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            example: 20
+        - name: fields
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The training runs have been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingRunsPage'
+        '500':
+          description: Unexpected condition was encountered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-runs:
+    post:
+      tags:
+        - Training Runs
+      summary: Access training run
+      description: Creates or resumes access to a run by training instance access token.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: access_token
+          in: query
+          required: true
+          schema:
+            type: string
+            example: sandbox-2026
+      responses:
+        '200':
+          description: The training run has been accessed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTrainingRun'
+        '404':
+          description: No training instance with the given access token, or first level not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '409':
+          description: No assigned pool to the training instance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Some error occurred during getting info about sandboxes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /training-runs/{run_id}:
+    get:
+      tags:
+        - Training Runs
+      summary: Get training run by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: run_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: fields
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The training run has been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingRunById'
+        '404':
+          description: The training run has not been found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'

@@ -1,47 +1,64 @@
+---
+title: Administration Agenda
+sidebar_position: 3
+---
+
 # Administration Agenda
 
-## Overview
+## I. Tổng quan
 
-Administration Agenda dùng để quản lý người dùng, nhóm và microservice trong hệ thống CyberRangeCZ.
+### 1. Khái niệm
 
-<!-- image: overview page -->
+**Administration Agenda** là khu vực quản trị trung tâm của CyberRangeCZ Platform, dùng để quản lý người dùng, nhóm và microservice trong toàn hệ thống.
 
-- Chỉ user có role **administrator** mới truy cập được.
-- Mặc định, user được gán role **trainee** khi đăng nhập.
-- Gồm 3 phần chính:
-  - User Overview (Quản lý người dùng)
-  - Group Overview (Quản lý nhóm)
-  - Microservice Registration (Đăng ký microservice)
+### 2. Chức năng chính
+
+- Quản lý **Users**
+- Quản lý **Groups**
+- Đăng ký và quản lý **Microservices**
+- Quản lý phân quyền truy cập thông qua **roles** và **groups**
+
+### 3. Quyền truy cập
+
+- Chỉ người dùng có role **administrator** mới được phép truy cập
+- Mặc định, người dùng sẽ được gán role **trainee** khi đăng nhập
+
+### 4. Truy cập
+
+- Nhấp vào nút tương ứng trên trang đầu tiên của **CyberRangeCZ Platform**
+
+![Overview](/img/ad1.jpg)
 
 ---
 
-## Users
+## II. Users
 
-### Chức năng
+### 1. Chức năng
 
-- Hiển thị danh sách tất cả user đã đăng nhập qua OIDC provider.
-- Mỗi dòng là 1 user.
-- Click vào tên user để xem chi tiết.
+Phần **Users** hiển thị danh sách tất cả người dùng đã đăng nhập thông qua **OIDC provider**.
 
-<!-- image: user overview table -->
+- Mỗi dòng tương ứng với một người dùng
+- Có thể nhấp vào tên người dùng để xem thông tin chi tiết
 
-### Thao tác
+![Overview](/img/add2.jpg)
 
-- **Xóa user:**
-  - Xóa từng user bằng icon 🗑
-  - Xóa nhiều user bằng checkbox → `Delete`
+### 2. Các thao tác chính
 
-- **Export credentials:**
-  - Nút `Get Users Credentials` để tải file YAML (login + password)
+#### 🗑️ Xóa người dùng
 
-<!-- image: get users credentials button -->
+- Xóa từng người dùng bằng biểu tượng 🗑
+- Xóa nhiều người dùng bằng cách chọn checkbox rồi nhấn `Delete`
 
-- **Import users:**
-  - Nút `Import Users`
+#### 📤 Export credentials
 
-<!-- image: upload users modal -->
+- Nhấn nút `Get Users Credentials` để tải file YAML chứa thông tin đăng nhập và mật khẩu
 
-- Upload file YAML theo format:
+![Overview](/img/add3.jpg)
+
+#### 📥 Import người dùng
+
+- Nhấn nút `Import Users`
+- Tải lên file YAML theo định dạng sau:
 
 ```json
 {
@@ -58,139 +75,159 @@ Administration Agenda dùng để quản lý người dùng, nhóm và microserv
 }
 ```
 
-### Lưu ý
+### 3. Lưu ý khi import
 
-- `sub`, `iss` là bắt buộc
-- `full_name`, `given_name`, `family_name` là optional
-- Nếu không có `group_name` → cần gán group thủ công
+- `sub` và `iss` là các trường bắt buộc
+- `full_name`, `given_name`, `family_name` là các trường không bắt buộc
+- Nếu không khai báo `group_name`, người dùng cần được gán nhóm thủ công sau khi import
 
-### User Detail
+### 4. User Detail
 
-- Gồm 2 phần:
-  1. Thông tin user (username, email, số role)
-  2. Danh sách role + microservice
+Trang chi tiết người dùng gồm 2 phần chính:
 
-<!-- image: user detail roles -->
+1. Thông tin cơ bản của người dùng:
+   - Username
+   - Email
+   - Số lượng role
+2. Danh sách role và microservice tương ứng
 
-- Có thể expand/collapse từng role để xem chi tiết
+![Overview](/img/add4.jpg)
+
+- Có thể **expand/collapse** từng role để xem chi tiết
 
 ---
 
-## Groups
+## III. Groups
 
-### Chức năng
+### 1. Chức năng
 
-- Quản lý nhóm user
-- Quyền truy cập hệ thống được gán qua group
+Phần **Groups** dùng để quản lý nhóm người dùng.
 
-<!-- image: group overview table -->
+- Quyền truy cập hệ thống được gán thông qua **group**
 
-### Thao tác
+![Overview](/img/add5.jpg)
 
-- **Create group:** Nút `Create`
-- **Edit:** Icon ✏️
-- **Delete:** Icon 🗑 hoặc delete nhiều bằng checkbox
+### 2. Các thao tác chính
 
-<!-- image: delete group confirm -->
+- ➕ **Create**: tạo nhóm mới
+- ✏️ **Edit**: chỉnh sửa nhóm
+- 🗑️ **Delete**: xóa nhóm
+- ✅ Có thể xóa nhiều nhóm bằng checkbox
 
-### Create / Edit Group
+![Overview](/img/add6.jpg)
+![Overview](/img/add7.jpg)
 
-#### Cấu trúc gồm 3 phần:
+### 3. Tạo / chỉnh sửa nhóm
 
-1. Thông tin group
-2. Members
-3. Roles
+Giao diện tạo hoặc chỉnh sửa nhóm gồm 3 phần:
 
-<!-- image: create group form -->
+1. **Thông tin group**
+2. **Members**
+3. **Roles**
 
-#### Create/Edit Group
+![Create group](/img/add7.jpg)
 
-- Điền:
-  - Name (bắt buộc)
+#### a. Thông tin group
+
+Cần nhập các thông tin sau:
+
+- **Name** (bắt buộc)
+- **Description**
+- **Expiration Date** (không bắt buộc)
+
+Sau khi nhập xong, có thể chọn:
+
+- `Create` – tạo nhóm và quay về danh sách
+- `Create And Continue Editing` – tạo nhóm và tiếp tục chỉnh sửa
+
+![Create group](/img/add8.jpg)
+
+#### b. Quản lý thành viên
+
+Có thể thêm người dùng bằng các cách sau:
+
+- **Add users** – tìm kiếm và thêm người dùng
+- **Import users** – nhập người dùng từ nhóm khác
+
+![Create group](/img/add9.jpg)
+
+- Nhấn `Add` để thêm người dùng
+- Có thể xóa người dùng khỏi nhóm bằng chức năng delete
+
+#### c. Quản lý roles
+
+- Thêm role bằng nút `Add`
+- Các role được gán cho group
+- Có thể xóa role đã thêm
+
+![Create group](/img/add10.jpg)
+
+### 4. Group Detail
+
+Trang chi tiết nhóm hiển thị:
+
+- Thông tin của nhóm:
   - Description
-  - Expiration Date (optional)
+  - Expiration date
+  - Số lượng người dùng
+  - Số lượng role
+- Danh sách người dùng trong nhóm
+- Danh sách role của nhóm
 
-- Sau đó:
-  - `Create` → tạo và quay về danh sách
-  - `Create And Continue Editing` → tiếp tục chỉnh sửa
+![Create group](/img/add11.jpg)
 
-#### Edit Members
+- Có thể **expand** từng role để xem phần mô tả chi tiết
 
-- Thêm user:
-  - Add users (tìm kiếm)
-  - Import users từ group khác
-
-<!-- image: edit members section -->
-
-- Click `Add` để thêm
-- Xóa user bằng delete
-
-#### Edit Roles
-
-- Thêm role bằng `Add`
-- Role được gán cho group
-- Có thể xóa role
-
-<!-- image: edit roles section -->
-
-### Group Detail
-
-Hiển thị:
-
-- Thông tin group (description, expiration, số user, số role)
-- Danh sách user trong group
-- Danh sách role
-
-<!-- image: group detail -->
-
-- Có thể expand role để xem description
+![Create group](/img/add12.jpg)
 
 ---
 
-## Microservices
+## IV. Microservices
 
-### Microservice Overview
+### 1. Microservice Overview
 
-- Danh sách các microservice đã đăng ký
-- Thông tin gồm:
-  - ID
-  - Name
-  - Endpoint
+Phần này hiển thị danh sách các microservice đã được đăng ký, bao gồm:
 
-<!-- image: microservice overview -->
+- **ID**
+- **Name**
+- **Endpoint**
 
-- Thêm mới bằng nút `Register`
+![List](/img/micro1.jpg)
 
-### Microservice Registration
+- Có thể thêm microservice mới bằng nút `Register`
 
-Dùng để đăng ký microservice mới.
+### 2. Microservice Registration
 
-<!-- image: microservice registration form -->
+Phần **Microservice Registration** dùng để đăng ký một microservice mới.
 
-### Thông tin cần nhập:
+![Micro Registration](/img/micro2.jpg)
 
-- Name
-- Endpoint
+### 3. Thông tin cần nhập
 
-### Role:
+Khi đăng ký microservice, cần nhập:
 
-- Tạo role cho microservice
-- Có thể set role mặc định (Default)
+- **Name**
+- **Endpoint**
 
-### Khuyến nghị:
+### 4. Role của microservice
 
-- Import thư viện `security-commons`
-- Đăng ký microservice khi startup
+- Có thể tạo role cho microservice
+- Có thể thiết lập role mặc định (**Default**) cho microservice đó
+
+### 5. Khuyến nghị
+
+- Nên import thư viện `security-commons`
+- Nên đăng ký microservice ngay khi hệ thống khởi động
 
 ---
 
-## Tổng kết
+## V. Tổng kết
 
 Administration Agenda cho phép:
 
-- Quản lý user (CRUD + import/export)
-- Quản lý group (phân quyền)
-- Gán role theo group
-- Quản lý microservice và role tương ứng
+1. Quản lý người dùng (**CRUD + import/export**)
+2. Quản lý nhóm và phân quyền truy cập
+3. Gán role thông qua group
+4. Quản lý microservice và các role tương ứng
 
-=> Đây là trung tâm quản trị quyền truy cập của toàn hệ thống CyberRangeCZ.
+**Đây là trung tâm quản trị quyền truy cập của toàn bộ hệ thống CyberRangeCZ.**

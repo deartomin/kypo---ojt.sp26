@@ -4,11 +4,11 @@
  */
 
 /* ===== FONT ===== */
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 :root {
-  --ifm-font-family-base: "Inter", sans-serif;
+  --ifm-font-family-base: 'Inter', sans-serif;
 }
 
 /* ===== DARK MODE ===== */
@@ -245,4 +245,38 @@ pre {
 
 .theme-doc-markdown {
   max-width: 800px;
+}
+
+/* 🔥 Sidebar clean (không ô) */
+
+.menu__link {
+  background: transparent;
+  /* ❌ bỏ nền */
+  margin: 6px 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+
+  color: #222;
+  /* 🔥 chữ đậm rõ */
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+/* Hover nhẹ */
+.menu__link:hover {
+  color: #00c896;
+  background: rgba(0, 200, 150, 0.08);
+}
+
+/* Active (đang chọn) */
+.menu__link--active {
+  color: #00c896;
+  font-weight: 600;
+}
+
+/* Category (User Guide) */
+.menu__list-item-collapsible>.menu__link {
+  font-weight: 600;
+  color: #000;
 }

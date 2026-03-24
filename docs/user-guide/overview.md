@@ -5,59 +5,72 @@ sidebar_position: 1
 
 # Overview
 
-## Tổng quan
+## I. Tổng quan
 
-CyberRange Platform là nền tảng cho phép tạo và quản lý các môi trường mô phỏng (sandbox) phục vụ đào tạo và nghiên cứu an ninh mạng. Người dùng tương tác với hệ thống thông qua giao diện web (portal), nơi cung cấp các chức năng trực quan và dễ sử dụng.
+### 1. Khái niệm
 
-## Lưu ý
+**CyberRange Platform** là nền tảng cho phép tạo và quản lý các môi trường mô phỏng (**sandbox**) phục vụ cho đào tạo và nghiên cứu an ninh mạng. Người dùng tương tác với hệ thống thông qua giao diện web (**portal**), nơi cung cấp các chức năng trực quan và dễ sử dụng.
 
-Nội dung tài liệu được tham khảo và tổng hợp dựa theo trải nghiệm và tài liệu chính thức của CyberRange Platform.  
-Để biết thêm chi tiết, vui lòng tham khảo tại: https://docs.platform.cyberrange.cz/
+### 2. Mục đích của tài liệu
 
----
+Tài liệu này được biên soạn nhằm giúp người dùng:
 
-## Cấu trúc hệ thống
+- Hiểu tổng quan về hệ thống
+- Nắm được cách sử dụng các chức năng chính
+- Phân biệt rõ giữa các mức độ sử dụng: cơ bản và nâng cao
 
-Hệ thống được tổ chức thành các nhóm chức năng chính:
+### 3. Lưu ý
 
-- **Sandbox Agenda**: Quản lý và sử dụng các môi trường sandbox
-- **Training Agenda**: Quản lý và tham gia các chương trình đào tạo
-- **Administration Agenda**: Quản lý người dùng và phân quyền
-
-Các nhóm chức năng này hỗ trợ toàn bộ quy trình từ cấu hình môi trường đến triển khai và học tập.
+Nội dung tài liệu được tham khảo và tổng hợp dựa trên trải nghiệm thực tế cũng như tài liệu chính thức của **CyberRange Platform**.  
+Để biết thêm thông tin chi tiết, vui lòng tham khảo tài liệu chính thức tại: https://docs.platform.cyberrange.cz/
 
 ---
 
-## Phân loại hướng dẫn
+## II. Cấu trúc hệ thống
+
+Hệ thống được tổ chức thành các nhóm chức năng chính sau:
+
+- **Sandbox Agenda** – Quản lý và sử dụng các môi trường sandbox
+- **Training Agenda** – Quản lý và tham gia các chương trình đào tạo
+- **Administration Agenda** – Quản lý người dùng và phân quyền
+
+Các nhóm chức năng này hỗ trợ toàn bộ quy trình từ cấu hình môi trường, triển khai hệ thống đến tổ chức đào tạo và học tập.
+
+---
+
+## III. Phân loại hướng dẫn
 
 Tài liệu được chia thành hai phần chính:
 
-- **User Guide (Basic)**: Dành cho người dùng cuối, tập trung vào các thao tác cơ bản như đăng nhập, sử dụng hệ thống, truy cập sandbox và tham gia các chương trình training.
+### 1. User Guide (Basic)
 
-- **User Guide (Advanced)**: Dành cho người dùng nâng cao (giảng viên, quản trị viên), cung cấp thông tin chi tiết về cấu trúc sandbox, cách tổ chức training và quản lý người dùng, phân quyền.
+Dành cho người dùng cuối, tập trung vào các thao tác cơ bản như:
 
----
+- Đăng nhập hệ thống
+- Sử dụng các chức năng chính
+- Truy cập sandbox
+- Tham gia các chương trình training
 
-## Vai trò người dùng
+### 2. User Guide (Advanced)
 
-Quyền sử dụng hệ thống phụ thuộc vào vai trò:
+Dành cho người dùng nâng cao như giảng viên hoặc quản trị viên, cung cấp thông tin chi tiết hơn về:
 
-- **Trainee (Người học)**: Tham gia training và thực hành
-- **Instructor (Giảng viên)**: Tạo và quản lý training
-- **Administrator (Quản trị viên)**: Quản lý toàn bộ hệ thống
-
----
-
-## Mục đích của tài liệu
-
-Tài liệu này giúp người dùng:
-
-- Hiểu tổng quan hệ thống
-- Nắm được cách sử dụng các chức năng chính
-- Phân biệt rõ giữa các mức độ sử dụng (cơ bản và nâng cao)
+- Cấu trúc và cách vận hành sandbox
+- Cách tổ chức và quản lý training
+- Quản lý người dùng và phân quyền hệ thống
 
 ---
 
-## Lưu ý
+## IV. Vai trò người dùng
 
-Tài liệu sẽ được cập nhật bổ sung khi phát sinh thêm chức năng hoặc lỗi mới trong quá trình triển khai và sử dụng hệ thống.
+Quyền sử dụng hệ thống phụ thuộc vào vai trò của từng người dùng:
+
+- **Trainee (Người học)** – Tham gia training và thực hành
+- **Instructor (Giảng viên)** – Tạo và quản lý training
+- **Administrator (Quản trị viên)** – Quản lý toàn bộ hệ thống
+
+---
+
+## V. Ghi chú bổ sung
+
+Tài liệu sẽ tiếp tục được cập nhật và bổ sung khi phát sinh thêm chức năng mới hoặc khi có thay đổi, lỗi và cải tiến trong quá trình triển khai và sử dụng hệ thống.

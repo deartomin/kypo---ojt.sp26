@@ -25,6 +25,8 @@ const sidebars = {
 
     "developer-guide/dev-guide",
     "demo/demo",
+    "api/api-docs",
+    "api/training-api-test-guide",
     "faq/faq",
     "references-contact/reference-contact",
   ],

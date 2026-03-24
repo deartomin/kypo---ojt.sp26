@@ -5,29 +5,40 @@ sidebar_position: 3
 
 # Sandbox Agenda
 
-## Tổng quan
+## I. Tổng quan
+
+### 1. Khái niệm
 
 **Sandbox Agenda** là khu vực trung tâm của CyberRangeCZ Platform dùng để tạo và quản lý môi trường sandbox phục vụ đào tạo.
 
-Chức năng chính bao gồm:
+### 2. Chức năng chính
 
 - Tạo và quản lý **Sandbox Definition**
 - Quản lý **Pool**
 - Theo dõi và điều khiển **Sandbox Instances**
 - Quản lý **Images**
 
-Luồng hoạt động cơ bản:
+### 3. Truy cập
 
-1. Tạo Sandbox Definition (mô tả hệ thống)
-2. Tạo Pool từ Definition
-3. Allocate để tạo Sandbox Instances
-4. Quản lý vòng đời (lock, delete, retry, ...)
+- Nhấp vào nút tương ứng trên trang chính của web
+- Hoặc trong phần điều hướng ở Sandboxes
+
+![Truy cập](/img/sanbox1.jpg)
+
+### 4. Luồng hoạt động
+
+> 💡 Workflow chính:
+>
+> 1. Tạo Sandbox Definition (mô tả hệ thống)
+> 2. Tạo Pool từ Definition
+> 3. Allocate để tạo Sandbox Instances
+> 4. Quản lý vòng đời (lock, delete, retry, ...)
 
 ---
 
-## Sandbox Definition
+## II. Sandbox Definition
 
-**Khái niệm**
+### 1. Khái niệm
 
 **Sandbox Definition** là bản mô tả (blueprint) của một môi trường sandbox, bao gồm:
 
@@ -38,243 +49,160 @@ Luồng hoạt động cơ bản:
 
 Mỗi definition được lưu trữ dưới dạng **Git repository**.
 
-**Danh sách Sandbox Definition**
+### 2. Sandbox Definition Overview
 
-Trang này hiển thị tất cả các sandbox definitions có trong hệ thống.
+Hiển thị tất cả sandbox definitions trong hệ thống.
 
-Mỗi dòng trong bảng tương ứng với một definition và có thể được sử dụng để tạo nhiều pool khác nhau.
+- Mỗi dòng tương ứng một definition
+- Có thể dùng để tạo nhiều pool
 
-<!-- TODO: Add screenshot - Sandbox Definition table -->
+![Sandbox Definition Overview](/img/sandbox2.jpg)
 
-**Các thao tác**
+#### a. Các thao tác
 
-**Xem chi tiết**
+##### 🔍 Xem chi tiết
 
-- Nhấn vào tên definition để xem thông tin chi tiết hoặc truy cập repository
+- Nhấn vào tên để xem thông tin hoặc truy cập repository
 
-**Xem topology**
+![Chi tiết](image.png)
 
-Hiển thị sơ đồ mạng của sandbox, bao gồm:
+##### 🌐 Xem topology
+
+Hiển thị sơ đồ mạng gồm:
 
 - Router
 - Switch
 - Hosts
 - Kết nối giữa các node
 
-Giúp kiểm tra cấu trúc trước khi triển khai.
+→ Giúp kiểm tra cấu trúc trước khi triển khai
 
-<!-- TODO: Add screenshot - Sandbox topology -->
+![Topology](/img/sandbox3.jpg)
 
-**Xóa definition**
+##### 🗑️ Xóa definition
 
-Xóa sandbox definition khỏi hệ thống.
+- Xóa sandbox definition khỏi hệ thống
 
-⚠️ Điều kiện:
+![Delete](/img/sandbox4.jpg)
 
-- Definition không được gán vào bất kỳ pool nào
+> ⚠️ Definition không được gán vào bất kỳ pool nào
 
-Nếu không thỏa điều kiện, hệ thống sẽ không cho phép xóa.
+### 3. Tạo Sandbox Definition
 
-<!-- TODO: Add screenshot - Delete sandbox definition -->
+#### ➕ Tạo mới (Create)
 
-**Tạo Sandbox Definition**
-
-**Các bước thực hiện**
-
-1. Nhấn nút **Create**
-2. Nhập thông tin:
-
-- **Git URL**: đường dẫn repository chứa definition
-- **Revision**: branch hoặc commit (thường là `master`)
-
+1. Nhấn **Create**
+2. Nhập:
+   - **Git URL**
+   - **Revision** (thường là `master`)
 3. Nhấn **Create**
 
-**Cách hệ thống xử lý**
+#### ⚙️ Hệ thống xử lý
 
 - Clone repository
-- Phân tích cấu trúc definition
+- Phân tích cấu trúc
 - Kiểm tra hợp lệ
 
-Nếu definition không đúng format, quá trình tạo sẽ thất bại.
+→ Nếu sai format → tạo thất bại
 
-<!-- TODO: Add screenshot - Create sandbox definition form -->
+![Create](/img/sandbox5.jpg)
 
 ---
 
-## Pool
+## III. Pool
 
-**Khái niệm**
+### 1. Khái niệm
 
-**Pool** là nơi chứa và quản lý các sandbox instances được tạo từ một sandbox definition.
+**Pool** là nơi chứa và quản lý sandbox instances từ một definition.
 
-Pool đóng vai trò:
+#### Vai trò:
 
 - Quản lý tài nguyên runtime
-- Điều phối việc tạo sandbox
+- Điều phối tạo sandbox
 - Theo dõi trạng thái sử dụng
 
-**Danh sách Pool**
+### 2. Tổng quan & thao tác Pool
 
-Trang này hiển thị toàn bộ các pool hiện có.
+![Pool Overview](/img/sanbox6.jpg)
 
-Thông tin chính bao gồm:
+Trang này hiển thị danh sách các pool hiện có, bao gồm:
 
 - Tên pool
-- Sandbox definition sử dụng
+- Sandbox definition
 - Trạng thái
 - Mức sử dụng tài nguyên
 
-<!-- TODO: Add screenshot - Pool overview -->
+Các hành động chính:
 
-**Các thao tác**
+- 📝 **Chỉnh sửa**: cập nhật cấu hình pool
+- 📦 **Allocate**: tạo nhiều sandbox (auto nếu còn 1)
+- ➕ **Allocate 1**: tạo nhanh 1 sandbox
+- 🗑️ **Xóa**: khi pool không lock & không có instance
+- 🔒 / 🔓 **Lock / Unlock**: khóa / mở pool
+- 📊 **Tài nguyên**: xem usage (CPU, RAM, network…)
 
-**Chỉnh sửa (Edit)**
+### 3. Tạo Pool
 
-Cho phép cập nhật:
-
-- Pool size
-- Mô tả (comment)
-- Cấu hình thông báo
-
-**Allocate sandbox**
-
-Tạo sandbox instances từ pool.
-
-- Nếu chỉ còn 1 sandbox → hệ thống tự động allocate
-- Nếu nhiều → người dùng chọn số lượng cần tạo
-
-Có thể nhập số hoặc sử dụng thanh trượt.
-
-<!-- TODO: Add screenshot - Allocate sandbox -->
-
-**Allocate một sandbox**
-
-Tạo nhanh một sandbox instance duy nhất.
-
-**Xóa pool**
-
-Xóa pool khỏi hệ thống.
-
-⚠️ Điều kiện:
-
-- Pool không bị lock
-- Pool không chứa sandbox instance
-
-<!-- TODO: Add screenshot - Delete pool warning -->
-
-**Lock / Unlock**
-
-- **Lock**: pool đang được sử dụng, không thể chỉnh sửa
-- **Unlock**: pool sẵn sàng để sử dụng
-
-**Thống kê tài nguyên**
-
-Hiển thị thông tin sử dụng:
-
-- Instances
-- vCPUs
-- RAM
-- Ports
-- Networks
-
-Giúp theo dõi tình trạng tài nguyên của hệ thống.
-
-<!-- TODO: Add screenshot - Resource statistics -->
-
-**Tạo Pool**
-
-**Các bước**
+#### ➕ Tạo Pool
 
 1. Nhấn **Create**
-2. Nhập thông tin:
-
-- Sandbox Pool Size
-- Sandbox Definition
-- Comment (tuỳ chọn)
-- Notification (tuỳ chọn)
-
+2. Nhập:
+   - Sandbox Pool Size
+   - Sandbox Definition
+   - Comment (optional)
+   - Notification (optional)
 3. Nhấn **Create**
 
-**Lưu ý**
+#### ⚠️ Lưu ý
 
-- Một pool chỉ gắn với một definition cố định
-- Nếu muốn dùng version khác → cần tạo pool mới
+- Pool chỉ gắn với **1 definition cố định**
+- Muốn đổi version → tạo pool mới
 
-<!-- TODO: Add screenshot - Create pool form -->
-
----
-
-## Pool Detail
-
-**Mô tả**
-
-Trang này hiển thị danh sách các sandbox instances thuộc pool.
-
-<!-- TODO: Add screenshot - Pool detail -->
-
-**Các thao tác**
-
-**Allocate Sandboxes**
-
-Tạo nhiều sandbox cùng lúc.
-
-- Nhập số lượng hoặc dùng slider
-- Nhấn **Allocate** để xác nhận
-
-**Xóa sandbox**
-
-- Xóa sandbox instance khỏi pool
-- Chỉ xóa được khi sandbox chưa bị lock
-
-**Lock / Unlock**
-
-- Lock khi sandbox đang được sử dụng
-- Unlock khi sandbox sẵn sàng
+![Pool](/img/sandbox7.jpg)
 
 ---
 
-## Sandbox Instances
+## IV. Pool Detail
 
-**Mô tả**
+### 1. Mô tả
 
-Danh sách các sandbox đã được tạo từ pool.
+Danh sách sandbox instances trong pool.
 
-**Các thao tác**
+![Pool Detail](/img/sandbox8.jpg)
 
-**Xóa sandbox**
+### 2. Thao tác
 
-Xóa sandbox instance.
-
-⚠️ Chỉ xóa được khi sandbox chưa bị lock.
-
-**Xem topology**
-
-Hiển thị sơ đồ mạng của sandbox đang chạy.
-
-<!-- TODO: Add screenshot - Instance topology -->
-
-**SSH Config**
-
-Tải file cấu hình SSH để truy cập vào sandbox.
-
-**Lock / Unlock**
-
-- Lock: sandbox đang được sử dụng
-- Unlock: sandbox sẵn sàng để sử dụng lại
+- 📦 **Allocate**: tạo nhiều sandbox (nhập số lượng hoặc dùng slider)
+- 🗑️ **Xóa**: chỉ khi sandbox chưa lock
+- 🔒 / 🔓 **Lock / Unlock**: khóa / mở sandbox
 
 ---
 
-## Quá trình tạo sandbox
+## V. Sandbox Instances
 
-**Các giai đoạn**
+### 1. Mô tả
 
-Việc tạo sandbox gồm nhiều bước:
+Danh sách sandbox được tạo từ pool.
+
+### 2. Thao tác
+
+- 🗑️ **Xóa**: chỉ khi chưa lock
+- 🌐 **Topology**: xem sơ đồ mạng
+- 🔑 **SSH Config**: tải file truy cập
+- 🔒 / 🔓 **Lock / Unlock**: khóa / mở sandbox
+  ![Pool Detail](/img/sandbox9.jpg)
+
+---
+
+## VI. Quá trình tạo sandbox
+
+### 1. Các giai đoạn
 
 1. Tạo hạ tầng (Terraform)
 2. Cấu hình mạng (Ansible)
 3. Provisioning hệ thống
 
-**Trạng thái**
+### 2. Trạng thái
 
 | Trạng thái | Ý nghĩa        |
 | ---------- | -------------- |
@@ -283,31 +211,31 @@ Việc tạo sandbox gồm nhiều bước:
 | Finished   | Hoàn thành     |
 | Failed     | Lỗi            |
 
-**Retry**
+### 3. Retry
 
-Nếu xảy ra lỗi:
+#### 🔄 Retry
 
-- Có thể retry stage bị lỗi
-- Hiện tại chỉ hỗ trợ retry một số stage
+- Có thể retry stage lỗi
+- Chỉ hỗ trợ một số stage
 
-**Xem chi tiết**
+### 4. Xem chi tiết
 
-- Nhấn vào sandbox để xem log từng stage
-- Có thể theo dõi lỗi tại đây
+#### 🔍 Xem log
 
-<!-- TODO: Add screenshot - Allocation stages -->
+- Nhấn vào sandbox
+- Xem log từng stage
 
 ---
 
-## Images
+## VII. Images
 
-**Khái niệm**
+### 1. Khái niệm
 
-Images là danh sách các hệ điều hành có thể dùng để tạo máy ảo trong sandbox.
+Images là hệ điều hành dùng để tạo VM trong sandbox.
 
-**Danh sách Images**
+### 2. Danh sách
 
-Thông tin hiển thị:
+Hiển thị các thông tin:
 
 - Name
 - Default User
@@ -315,43 +243,32 @@ Thông tin hiển thị:
 - GUI Access
 - Size
 
-<!-- TODO: Add screenshot - Images table -->
+![Images](/img/sandbox10.jpg)
 
-**Thông tin chi tiết**
+### 3. Chi tiết
 
 Bao gồm:
 
-- OS Distro
-- OS Type
-- Disk Format
-- Container Format
-- Min Disk
-- Min RAM
-- Visibility
-- Created At
-- Tags
-- Version
+- OS Distro, OS Type
+- Disk / Container Format
+- Min Disk, Min RAM
+- Visibility, Created At
+- Tags, Version
 
-**Bộ lọc**
+### 4. Bộ lọc
 
-Có thể lọc theo:
+- 🔎 Only CRCZP images
+- 🔎 Only GUI access
 
-- Only CRCZP images
-- Only GUI access
-
-Giúp tìm nhanh image phù hợp.
-
-<!-- TODO: Add screenshot - Image filters -->
+→ Giúp tìm image nhanh hơn
 
 ---
 
-## Tổng kết
+## VIII. Tổng kết
 
-Sandbox Agenda bao gồm 4 thành phần chính:
+Sandbox Agenda gồm 4 thành phần chính:
 
 1. **Sandbox Definition** – mô tả hệ thống
-2. **Pool** – quản lý tài nguyên và runtime
+2. **Pool** – quản lý tài nguyên
 3. **Sandbox Instances** – môi trường thực thi
-4. **Images** – hệ điều hành sử dụng
-
-Đây là workflow cốt lõi của CyberRangeCZ Platform trong việc triển khai và vận hành môi trường đào tạo.
+4. **Images** – hệ điều hành
