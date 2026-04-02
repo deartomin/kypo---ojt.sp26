@@ -21,7 +21,7 @@ const sidebars = {
           label: "Training Agenda",
           link: {
             type: "doc",
-            id: "user-guide/training-agenda/index",
+            id: "user-guide/training-agenda/overview",
           },
           collapsible: true,
           collapsed: false,

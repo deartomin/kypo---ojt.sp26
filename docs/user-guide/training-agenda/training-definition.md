@@ -11,11 +11,24 @@ sidebar_position: 3
 
 Trang này hiển thị danh sách các định nghĩa huấn luyện mà instructor có thể truy cập. Mỗi dòng tương ứng với một definition và cho phép thực hiện các thao tác cơ bản như:
 
+![Linear Training Definition Overview](/img/train1.jpg)
+
+- **Info**: User với vai trò ROLE_TRAINING_ADMINISTRATOR có thể xem tất cả các Training Definition
 - **Edit**: chỉnh sửa definition
-- **Delete**: xóa definition
+
+![Linear Training Definition Overview](/img/train1.jpg)
+
+- **Delete**: xóa definition, và không thể xóa các training definition được sử dụng trong training instance
+
+![Linear Training Definition Overview](/img/train1.jpg)
+
 - **Clone**: sao chép definition
+
+![Linear Training Definition Overview](/img/train1.jpg)
+
 - **Download**: tải definition dưới dạng file JSON
-- **Preview**: xem trước giao diện của trainee
+- **Preview**: xem trước giao diện của trainee. Cách giải
+  và hints được tự động hiện thị trong bản preview của training definition nhưng luôn ẩn đi, chỉ hiện tra nếu nhấp vào
 - **Release / Unrelease / Archive**: thay đổi trạng thái definition
 
 ⚠️ **Lưu ý:**  
