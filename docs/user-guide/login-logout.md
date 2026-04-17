@@ -9,51 +9,36 @@ sidebar_position: 2
 
 Tài liệu này hướng dẫn cách đăng nhập (**Login**) và đăng xuất (**Logout**) trên nền tảng **CyberRangeCZ Platform**.
 
+Trong phiên bản triển khai hiện tại, hệ thống sử dụng **IP public** hoặc **domain public**, vì vậy người dùng có thể truy cập trực tiếp giao diện web mà không cần thiết lập kết nối mạng nội bộ bằng `sshuttle`.
+
 ---
 
 ## II. Đăng nhập (Login)
 
-### 1. Kết nối mạng nội bộ
+### 1. Truy cập hệ thống
 
-Trước khi truy cập giao diện web, bạn cần thiết lập kết nối mạng bảo mật bằng cách sử dụng `sshuttle`.
-
-Thực hiện theo các bước sau:
-
-1. Mở terminal trên máy tính
-2. Chạy lệnh sau:
-
-```bash
-sshuttle -r sp26-ojt@100.70.135.32 10.1.2.0/24
-```
-
-![Kết nối sshuttle](/img/log1.jpg)
-
-_Hình: Kết quả kết nối thành công_
-
-### 2. Truy cập hệ thống
-
-Sau khi kết nối thành công:
+Để truy cập hệ thống, thực hiện các bước sau:
 
 1. Mở trình duyệt web
-2. Nhập địa chỉ IP hoặc URL của hệ thống
+2. Nhập **địa chỉ IP public** hoặc **URL/domain** của hệ thống
 3. Trang đăng nhập sẽ được hiển thị
 
-![Truy cập ip](/img/log2.jpg)
+![Truy cập hệ thống](/img/log2.jpg)
 
-### 3. Phương thức xác thực
+### 2. Phương thức xác thực
 
 Hệ thống sử dụng cơ chế xác thực thông qua các nhà cung cấp **OIDC (OpenID Connect)**.
 
 > ⚠️ **Lưu ý về quyền truy cập**
 >
-> - Nếu không sử dụng **Keycloak OIDC**, bạn cần được cấp quyền truy cập thủ công
+> - Nếu không sử dụng **Keycloak OIDC**, bạn cần được cấp quyền truy cập phù hợp
 > - Nếu sử dụng **Keycloak OIDC**, quản trị viên sẽ cung cấp:
 >   - **Username** (Tên đăng nhập)
 >   - **Password** (Mật khẩu)
 
 ![OIDC](/img/log3.jpg)
 
-### 4. Thực hiện đăng nhập
+### 3. Thực hiện đăng nhập
 
 Các bước đăng nhập như sau:
 
@@ -70,7 +55,7 @@ Các bước đăng nhập như sau:
 - **Username**: `crczp-admin`
 - **Password**: `admin`
 
-### 5. Giao diện sau khi đăng nhập
+### 4. Giao diện sau khi đăng nhập
 
 Sau khi đăng nhập thành công, bạn sẽ được chuyển đến **CyberRangeCZ Platform Portal**.
 
@@ -121,8 +106,7 @@ Sau khi đăng xuất:
 
 Quy trình sử dụng cơ bản gồm các bước:
 
-1. Kết nối mạng nội bộ
-2. Truy cập **CyberRangeCZ Platform**
-3. Đăng nhập thông qua **OIDC** (hoặc **Keycloak** nếu được cấu hình)
-4. Sử dụng hệ thống theo quyền được cấp
-5. Đăng xuất sau khi hoàn tất để đảm bảo an toàn và bảo mật
+1. Truy cập **CyberRangeCZ Platform** bằng **IP public** hoặc **domain public**
+2. Đăng nhập thông qua **OIDC** hoặc **Keycloak** nếu được cấu hình
+3. Sử dụng hệ thống theo quyền được cấp
+4. Đăng xuất sau khi hoàn tất để đảm bảo an toàn và bảo mật

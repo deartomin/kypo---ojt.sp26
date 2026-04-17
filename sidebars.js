@@ -51,6 +51,7 @@ const sidebars = {
         "developer-guide/trace-code-kypo-sandbox-service",
         "developer-guide/trace-code-kypo-training-service",
         "developer-guide/mo-hinh-a&d",
+        "developer-guide/demo-api",
       ],
     },
     "demo/demo",

@@ -26,7 +26,7 @@ Bảng tổng quan thường hiển thị:
 - trạng thái của từng phương thức phát hiện
 - các thao tác có thể thực hiện
 
-<!-- [Ảnh: Cheating Detection Overview] -->
+![Linear Overview](/img/cheat1.jpg)
 
 ### 2. Create Cheating Detection
 
@@ -44,7 +44,7 @@ Hệ thống hiện hỗ trợ các phương thức sau:
 ⚠️ **Lưu ý:**  
 Các phương thức này chỉ hỗ trợ phát hiện dấu hiệu đáng ngờ, không khẳng định chắc chắn rằng trainee đã gian lận.
 
-<!-- [Ảnh: Create Cheating Detection] -->
+![Linear Overview](/img/cheat2.jpg)
 
 ### 3. Detection Events of Cheating Detection
 
@@ -58,7 +58,7 @@ Sau khi detection chạy xong, hệ thống tạo danh sách các **detection ev
 
 Instructor có thể mở trang chi tiết để xem thêm thông tin của từng event.
 
-<!-- [Ảnh: Detection Events of Cheating Detection] -->
+![Linear Overview](/img/cheat3.jpg)
 
 ### 4. Detection Event Detail
 
@@ -71,13 +71,17 @@ Trang chi tiết hiển thị thông tin đầy đủ của một detection even
 - **No Commands**: hiển thị event không có command nào được ghi nhận
 - **Forbidden Commands**: hiển thị danh sách command bị cấm và dòng thời gian command liên quan
 
-<!-- [Ảnh: Detection Event Detail] -->
+![Linear Overview](/img/cheat4.jpg)
 
 ---
 
 ## Training Instance
 
 **Training Instance** dùng để tạo và quản lý các phiên bản huấn luyện cụ thể. Phần này hỗ trợ cả **linear training instance** và **adaptive training instance**.
+
+![Linear Overview](/img/in1.jpg)
+
+![Linear Overview](/img/in2.jpg)
 
 ### 1. Training Instance Overview
 
@@ -86,6 +90,9 @@ Trang này hiển thị danh sách các training instance mà instructor có quy
 - **Create**: tạo mới instance
 - **Edit**: chỉnh sửa instance
 - **Delete**: xóa instance
+
+![Linear Overview](/img/in3.jpg)
+
 - **Get Data**: export dữ liệu kết quả
 - **Get SSH Configs**: tải cấu hình SSH
 - **Training Runs**: xem các lần chạy huấn luyện
@@ -96,9 +103,6 @@ Trang này hiển thị danh sách các training instance mà instructor có quy
 - **Cheating Detection**: mở trang cheating detection
 
 Bảng tổng quan cũng cho phép mở nhanh trang summary của instance, chi tiết training definition, pool hoặc token truy cập nếu có.
-
-<!-- [Ảnh: Training Instance Overview] -->
-<!-- [Ảnh: các action trong Training Instance Overview] -->
 
 ### 2. Training Instance Detail
 
@@ -113,7 +117,7 @@ Trang này hiển thị danh sách các training run thuộc về instance. Inst
 
 Trong một số trường hợp, instructor cũng có thể xóa training run cùng sandbox tương ứng.
 
-<!-- [Ảnh: Training Instance Detail] -->
+![Linear Overview](/img/in4.jpg)
 
 ### 3. Create/Edit Training Instance
 
@@ -129,20 +133,23 @@ Trang này dùng để tạo mới hoặc chỉnh sửa training instance. Instr
 
 Sau khi lưu, instructor có thể tiếp tục chỉnh sửa organizers và các thiết lập liên quan.
 
-#### Assign Pool
+![Linear Overview](/img/in5.jpg)
+
+##### Assign Pool
 
 Nếu **local environment** bị tắt, instructor có thể gán một **pool** cho instance. Pool được dùng để cung cấp sandbox cho người học trong quá trình training run.
 
-#### Assign Sandbox Definition
+![Linear Overview](/img/in6.jpg)
+
+##### Assign Sandbox Definition
 
 Nếu **local environment** được bật, instructor có thể gán một **sandbox definition** thay vì pool.
+
+![Linear Overview](/img/in7.jpg)
 
 #### Edit Instructors
 
 Instructor có thể thêm các instructor khác để cùng quản lý training instance. Những người này có thể xem tiến độ và kết quả tương tự author.
-
-<!-- [Ảnh: Create/Edit Training Instance] -->
-<!-- [Ảnh: Assign Pool / Assign Sandbox Definition / Edit Instructors] -->
 
 ### 4. Summary of Training Instance
 
@@ -154,21 +161,19 @@ Trang này cung cấp phần tóm tắt toàn bộ instance, bao gồm:
 - training runs đang hoạt động
 - các nút mở nhanh tới progress, results, aggregated results và cheating detection
 
+![Linear Overview](/img/in8.jpg)
+
 Nếu là **APG training definition**, instructor còn có thể mở rộng từng training run để xem correct answers và variable name theo từng level.
 
-<!-- [Ảnh: Summary of Training Instance] -->
+![Linear Overview](/img/in9.jpg)
 
 ### 5. Progress of Training Instance
 
-Phần này dùng để theo dõi tiến độ của người tham gia theo thời gian. Dữ liệu được hiển thị bằng công cụ trực quan riêng.
-
-<!-- [Ảnh: Progress of Training Instance] -->
+Phần này dùng để theo dõi tiến độ của người tham gia theo thời gian. Dữ liệu được hiển thị bằng công cụ trực quan riêng. Miêu tả tại bài Visualization Tools
 
 ### 6. Results of Training Instance
 
 Sau khi training kết thúc, instructor có thể xem kết quả theo từng loại instance:
 
-- **Linear**: hiển thị kết quả tổng quan và kết quả của từng trainee
-- **Adaptive**: hiển thị luồng chuyển giữa các task và kết quả của người học
-
-<!-- [Ảnh: Results of Training Instance - Linear / Adaptive] -->
+- **Linear**: hiển thị kết quả tổng quan và kết quả của từng trainee, được hiển thị ở bài Visualization Tools
+- **Adaptive**: hiển thị luồng chuyển giữa các task và kết quả của người học, được hiển thị ở bài Visualization Tools
