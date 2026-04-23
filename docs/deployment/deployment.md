@@ -1,66 +1,75 @@
 ---
 sidebar_position: 2
+title: Triển khai KYPO bằng Local Image (HTTP Server)
 ---
 
-# Hướng dẫn triển khai KYPO
+# Triển khai KYPO bằng Local Image (HTTP Server)
 
 ## Tổng quan
 
-Do hệ thống mạng tại server không đáp ứng được nhu cầu trong quá trình setup, việc triển khai sẽ được thực hiện bằng cách **ghi đè file `images.tf`**.
+Trong một số môi trường, băng thông mạng không đủ để tải image trực tiếp từ internet trong quá trình triển khai. Vì vậy, giải pháp được áp dụng là **host image nội bộ** và cấu hình OpenStack tải từ nguồn local.
 
-Trong đó:
+Cách làm cụ thể:
 
-- Toàn bộ link download image trong `images.tf` sẽ được **thay bằng link local**.
-- Sử dụng **Python HTTP Server** để host các image.
-- OpenStack sẽ download image từ **HTTP server local** thay vì từ internet.
+- Ghi đè file `images.tf` để thay link download bằng **link nội bộ**
+- Sử dụng **Python HTTP Server** để host các image
+- OpenStack sẽ tải image từ **HTTP server local**
 
-Trước tiên cần **cài đặt môi trường cơ bản theo khung có sẵn**.  
-Sau khi hệ thống hoạt động ổn định, tiến hành **cài đặt giao diện KYPO**.
+### Luồng triển khai
 
-Bạn có thể tham khảo chi tiết trước tại đây (1 số phần tại blog không ghi rõ) [Tài liệu setup KYPO](https://drive.google.com/file/d/1hevrTVSduv5o4A1Tuuq9DAEqgdKX5p4K/view)
+1. Chuẩn bị môi trường theo template có sẵn
+2. Cấu hình và host image local
+3. Ghi đè `images.tf`
+4. Deploy hạ tầng
+5. Cài đặt và truy cập giao diện KYPO
+
+📌 Tài liệu tham khảo (có thể thiếu một số chi tiết):  
+https://drive.google.com/file/d/1hevrTVSduv5o4A1Tuuq9DAEqgdKX5p4K/view
+
+📌 Update (23/04/2026):  
+Hiện tại đã có Cloud → thời gian tải giảm còn khoảng **30–40 phút**.  
+Nhóm cũng đã build script tự động → xem thêm ở phần _Script tự cài đặt KYPO_.
 
 ---
 
-# Yêu cầu hệ thống
+## Yêu cầu hệ thống
 
-## Hệ điều hành
+### Hệ điều hành
 
 - Ubuntu 24.04
 
-## Cấu hình phần cứng đề xuất
+### Cấu hình đề xuất
 
-| Tài nguyên | Cấu hình   |
-| ---------- | ---------- |
-| CPU        | 8 vCPU     |
-| RAM        | 48 GB      |
-| Storage    | 250 GB HDD |
+| Tài nguyên | Cấu hình |
+| ---------- | -------- |
+| CPU        | 8 vCPU   |
+| RAM        | 48 GB    |
+| Storage    | 250 GB   |
 
-Cấu hình tối thiểu để chạy chức năng cơ bản:
+### Cấu hình tối thiểu
 
-- **4 vCPU**
-- **48 GB RAM**
+- 4 vCPU
+- 48 GB RAM
 
 ---
 
-# Nền tảng triển khai
+## Nền tảng triển khai
 
-Hệ thống có thể chạy trên:
+Có thể triển khai trên:
 
 - Máy chủ vật lý
-- Máy tính để bàn
+- Máy tính cá nhân
 - Máy ảo
 
 ---
 
-# Step 1: Clone repository
-
-Clone repository từ GitHub:
+## Bước 1: Clone repository
 
 ```bash
 git clone https://github.com/cyberrangecz/devops-crczp-lite.git
 ```
 
-Tạo thư mục để chứa image và file `images.tf`:
+Tạo thư mục chứa image:
 
 ```bash
 mkdir httpSV
@@ -69,101 +78,66 @@ cd httpSV
 
 ---
 
-# Step 2: Tải image
-
-Tải các image cần thiết:
+## Bước 2: Tải image
 
 ```bash
 wget -O ubuntu-noble-x86_64.qcow2 https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
-```
-
-```bash
 wget -O kali.qcow2 https://gm7ve.upcloudobjects.com/crczp-images/kali.qcow2
-```
-
-```bash
 wget -O ubuntu-noble-man.qcow2 https://gm7ve.upcloudobjects.com/crczp-images/ubuntu-noble-man.qcow2
-```
-
-```bash
 wget -O debian-12.qcow2 https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2
 ```
 
 ---
 
-## Cách khác: sử dụng croc để gửi file
+## (Tùy chọn) Gửi file bằng croc
 
-Có thể tải file về máy local rồi gửi lên server bằng **croc**.
+Repository: https://github.com/schollz/croc
 
-Repository:
+### Cài đặt
 
-https://github.com/schollz/croc
-
-### Cài đặt croc
-
-Linux
+Linux:
 
 ```bash
 curl https://getcroc.schollz.com | bash
 ```
 
-Windows
+Windows:
 
 ```bash
 scoop install croc
-```
-
-hoặc
-
-```bash
+# hoặc
 choco install croc
-```
-
-hoặc
-
-```bash
+# hoặc
 winget install schollz.croc
 ```
 
-MacOS
+MacOS:
 
 ```bash
 brew install croc
 ```
 
----
-
 ### Gửi file
 
-Trên máy có file:
+Máy gửi:
 
 ```bash
 croc send [file]
 ```
 
-Sau đó trên server chạy:
+Server nhận:
 
 ```bash
 croc
 ```
 
-Nhập mã hiển thị, ví dụ:
-
-```bash
-croc 3584-common-citrus-octopus
-```
-
 ---
 
-# Step 3: Tạo file images.tf
-
-Tạo file:
+## Bước 3: Tạo file images.tf
 
 ```bash
 nano images.tf
 ```
-
-Nội dung:
 
 ```hcl
 resource "openstack_images_image_v2" "noble" {
@@ -215,37 +189,21 @@ resource "openstack_images_image_v2" "noble_man" {
 }
 ```
 
-⚠ Lưu ý:
-
-Thay `192.168.121.1` bằng **địa chỉ IP server của bạn**.
+⚠ Lưu ý: Thay `192.168.121.1` bằng IP server của bạn
 
 ---
 
-# Step 4: Chỉnh sửa file deploy
-
-Mở file:
+## Bước 4: Chỉnh sửa script deploy
 
 ```bash
 03-infrastructure-deploy.sh
 ```
 
-Thay toàn bộ function `deploy_base_infrastructure()` bằng version custom để:
+Thay function `deploy_base_infrastructure()` để:
 
 - Tự động tải `images.tf`
 - Ghi đè module images
-- Chạy Terraform tuần tự
-
----
-
-## Mục đích của thay đổi
-
-- Download `images.tf` sau khi chạy `tofu init`
-- Ghi đè file images.tf trong module
-- Chạy `tofu apply` với `parallelism=1` để tránh nghẽn I/O
-
----
-
-## Tóm tắt
+- Giảm song song tránh nghẽn I/O
 
 Sau khi chạy:
 
@@ -256,84 +214,47 @@ tofu init
 Script sẽ:
 
 1. Download `images.tf`
-2. Ghi đè vào thư mục module Terraform
+2. Ghi đè vào module Terraform
 3. Chạy:
 
 ```bash
 tofu apply -parallelism=1
 ```
 
-Điều này giúp tránh lỗi khi xử lý đa luồng.
-
 ---
 
-⚠ Lưu ý
-
-Luôn thay:
-
-```
-192.168.121.1
-```
-
-bằng **IP server của bạn**.
-
----
-
-# Step 5 (Optional): Sử dụng Screen
-
-Để tránh mất session khi SSH, nên sử dụng **screen**.
-
-GNU Screen là công cụ giúp quản lý nhiều session terminal.
-
-### Cài đặt
+## Bước 5 (Tùy chọn): Screen
 
 ```bash
 sudo apt install screen
-```
-
-Tạo session để chạy HTTP server:
-
-```bash
 screen -S http.python
 ```
 
 ---
 
-# Step 6: Chạy HTTP Server
-
-Trong thư mục chứa image:
+## Bước 6: Chạy HTTP Server
 
 ```bash
 python3 -m http.server 8080
 ```
 
-hoặc
-
-```bash
-python -m http.server 8080
-```
-
-⚠ Lưu ý: Nếu thay đổi port, cần cập nhật lại trong `images.tf`.
+⚠ Nếu đổi port → phải sửa lại trong `images.tf`
 
 ---
 
-# Step 7: Deploy hạ tầng
-
-Mở tab SSH mới.
-
-Vào thư mục repo:
+## Bước 7: Deploy hạ tầng
 
 ```bash
 cd devops-crczp-lite
 ```
 
-(Optional) tạo screen:
+(Optional)
 
 ```bash
 screen -S vagrant.up
 ```
 
-Cài đặt dependency:
+Cài dependency:
 
 ```bash
 sudo apt install -y qemu-kvm libvirt-daemon libvirt-clients bridge-utils virt-manager docker.io
@@ -355,7 +276,7 @@ vagrant up | tee debug.txt
 
 ---
 
-# Xem log
+## Xem log
 
 ```bash
 tail -f debug.txt
@@ -363,27 +284,31 @@ tail -f debug.txt
 
 ---
 
-# Reset môi trường
-
-Lưu ý: Nếu cần deploy lại từ đầu:
+## Reset môi trường
 
 ```bash
 vagrant destroy -f
 rm -rf .vagrant
 ```
 
-## Hoàn tất triển khai
+---
 
-Nếu màn hình hiển thị như hình dưới đây, quá trình deploy đã thành công
+## Hoàn tất
 
-![Deployment Done](/img/deployment-done.jpg)
-
-Sau đó chạy lệnh sau để kết nối vào mạng nội bộ, và dùng IP để truy cập vào giao diện web:
+Sau khi deploy xong, chạy:
 
 ```bash
 sshuttle -r sp26-ojt@100.70.135.32 10.1.2.0/24
 ```
 
-⚠ Lưu ý: Thay 192.168.121.1 bằng địa chỉ IP server của bạn
-IP này có thể khác nhau tùy theo từng máy hoặc môi trường  
-Quá trình deploy có thể mất 4 -5 tiếng tùy cấu hình máy và mạng (nếu có cloud thì sẽ nhanh hơn)
+để truy cập mạng nội bộ và giao diện web.
+
+---
+
+## Lưu ý quan trọng
+
+- Luôn thay `192.168.121.1` bằng IP thực tế
+- IP thay đổi tùy môi trường
+- Thời gian deploy:
+  - Không cloud: ~4–5 giờ
+  - Có cloud: ~30–40 phút

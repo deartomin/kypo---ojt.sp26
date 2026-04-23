@@ -3,6 +3,7 @@ const sidebars = {
     "overview/overview",
     "architecture/architecture",
     "deployment/deployment",
+    "role/role",
     {
       type: "category",
       label: "User Guide",

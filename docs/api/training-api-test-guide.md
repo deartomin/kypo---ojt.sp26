@@ -1,71 +1,86 @@
 ---
 id: training-api-test-guide
-title: 🧪 Hướng dẫn test API
+title: Hướng dẫn test Training API
 sidebar_position: 2
 ---
+
 # Hướng dẫn test Training API
 
-## Dữ liệu test lấy từ đâu?
+## I. Nguồn dữ liệu test
 
-Dữ liệu test **không lấy từ Docusaurus** và cũng **không tự sinh ra từ Swagger UI**.
+Dữ liệu khi test API:
 
-Khi bấm `Execute`, trang API Docs sẽ gọi API thật tới backend:
+- Không lấy từ Docusaurus
+- Không được sinh tự động từ Swagger UI
 
-- Base URL: `http://localhost:8083/training/api/v1`
+Khi bấm `Execute`, API Docs sẽ gọi trực tiếp tới backend:
 
-Backend này sẽ đọc dữ liệu từ:
+```
+http://localhost:8083/training/api/v1
+```
 
-1. **Database của service training**
-- Nơi lưu các dữ liệu chính như:
-  - `training_definition`
-  - `training_instance`
-  - `training_run`
+Backend sẽ lấy dữ liệu từ:
 
-2. **Các service phụ trợ**
-- Dùng cho các chức năng liên quan sandbox, answers, logs:
-  - sandbox/openstack service
-  - answers-storage service
-  - elasticsearch service
+### 1. Database của Training Service
 
-## Nếu không muốn dùng dữ liệu có sẵn trong DB thì làm thế nào?
+- `training_definition`
+- `training_instance`
+- `training_run`
+
+### 2. Các service phụ trợ
+
+- Sandbox / OpenStack service
+- Answers Storage service
+- Elasticsearch service
+
+---
+
+## II. Nguyên tắc test dữ liệu
+
+Nếu không muốn dùng dữ liệu có sẵn trong database:
 
 Cách đúng là:
 
-- **tự tạo dữ liệu mới bằng API**
-- sau đó dùng chính dữ liệu vừa tạo để test các API khác
+1. Tạo dữ liệu mới bằng API (`POST`)
+2. Lấy `id` từ response
+3. Dùng chính dữ liệu đó để test các API khác
 
-Không cần vào DB để lấy tay.
+Không cần truy vấn DB thủ công.
 
-## Luồng test đơn giản nhất
+---
 
-Thứ tự nên test:
+## III. Luồng test cơ bản
+
+Thứ tự khuyến nghị:
 
 1. Tạo `training definition`
 2. Tạo `training instance`
 3. Access `training run`
-4. Dùng các `id` vừa tạo để gọi các API `GET`, `PUT`, `PATCH`
+4. Dùng các `id` để test `GET / PUT / PATCH`
 
-## Điều kiện trước khi test
+---
 
-Cần chuẩn bị:
+## IV. Điều kiện trước khi test
 
-- backend training đang chạy tại `localhost:8083`
-- có bearer token hợp lệ
-- bấm `Authorize` và nhập:
+Cần đảm bảo:
+
+- Backend chạy tại `localhost:8083`
+- Có bearer token hợp lệ
+- Đã bấm `Authorize`
 
 ```text
 Bearer <your_token>
 ```
 
-## Kịch bản 1: Test dynamic flag bằng dữ liệu tự tạo
+---
 
-### Bước 1. Tạo training definition
+## V. Test Dynamic Flag
 
-API:
+### Bước 1: Tạo training definition
 
-- `POST /training-definitions`
-
-Body mẫu:
+```
+POST /training-definitions
+```
 
 ```json
 {
@@ -84,27 +99,21 @@ Body mẫu:
 }
 ```
 
-Sau khi gọi xong, lấy từ response:
+Lấy:
 
-- `id` -> dùng làm `definition_id`
+- `id` → `definition_id`
 
-### Bước 2. Test đọc training definition
+### Bước 2: Lấy training definition
 
-API:
+```
+GET /training-definitions/{definition_id}
+```
 
-- `GET /training-definitions/{definition_id}`
+### Bước 3: Lấy cấu hình dynamic flag
 
-Ví dụ:
-
-- `GET /training-definitions/1`
-
-### Bước 3. Test đọc dynamic flag config
-
-API:
-
-- `GET /dynamic-flags/{definition_id}`
-
-Kỳ vọng:
+```
+GET /dynamic-flags/{definition_id}
+```
 
 ```json
 {
@@ -114,13 +123,11 @@ Kỳ vọng:
 }
 ```
 
-### Bước 4. Test cập nhật dynamic flag
+### Bước 4: Cập nhật dynamic flag
 
-API:
-
-- `PUT /dynamic-flags/{definition_id}`
-
-Body:
+```
+PUT /dynamic-flags/{definition_id}
+```
 
 ```json
 {
@@ -130,34 +137,35 @@ Body:
 }
 ```
 
-### Bước 5. Test lấy current flag
+### Bước 5: Lấy current flag
 
-API:
+```
+GET /dynamic-flags/{definition_id}/current-flag
+```
 
-- `GET /dynamic-flags/{definition_id}/current-flag`
-
-Lưu ý:
-
-- API này trả về `text/plain`
-- Ví dụ response:
+Response dạng:
 
 ```text
 FLAG{abc123xyz}
 ```
 
-## Kịch bản 2: Test training instance bằng dữ liệu tự tạo
+---
 
-### Bước 1. Tạo training definition trước
+## VI. Test Training Instance
 
-Nếu chưa có `definition_id`, làm lại bước `POST /training-definitions` ở trên.
+### Bước 1: Chuẩn bị definition_id
 
-### Bước 2. Tạo training instance
+Nếu chưa có:
 
-API:
+```
+POST /training-definitions
+```
 
-- `POST /training-instances`
+### Bước 2: Tạo training instance
 
-Body mẫu:
+```
+POST /training-instances
+```
 
 ```json
 {
@@ -174,63 +182,59 @@ Body mẫu:
 }
 ```
 
-Sau khi gọi xong, lấy từ response:
+Lấy:
 
-- `id` -> dùng làm `instance_id`
+- `id` → `instance_id`
 - `access_token`
 
-### Bước 3. Test lấy danh sách training instances
+### Bước 3: Lấy danh sách
 
-API:
+```
+GET /training-instances
+```
 
-- `GET /training-instances`
+### Bước 4: Lấy chi tiết
 
-### Bước 4. Test lấy chi tiết training instance
+```
+GET /training-instances/{instance_id}
+```
 
-API:
+---
 
-- `GET /training-instances/{instance_id}`
+## VII. Test Training Run
 
-Ví dụ:
+### Điều kiện
 
-- `GET /training-instances/100`
+- Có `training_instance`
+- Có `access_token`
 
-## Kịch bản 3: Test training run bằng dữ liệu tự tạo
+### Bước 1: Access run
 
-### Trước khi test
+```
+POST /training-runs?access_token=instance-demo-001
+```
 
-Cần có:
+Lấy:
 
-- một `training_instance`
-- `access_token` của instance đó
+- `training_run_id` → `run_id`
 
-### Bước 1. Access training run
+### Bước 2: Lấy theo ID
 
-API:
+```
+GET /training-runs/{run_id}
+```
 
-- `POST /training-runs?access_token=instance-demo-001`
+### Bước 3: Lấy theo instance
 
-Sau khi gọi xong, lấy từ response:
+```
+GET /training-instances/{instance_id}/training-runs
+```
 
-- `training_run_id` -> dùng làm `run_id`
+---
 
-### Bước 2. Test lấy run theo id
+## VIII. Khi nào cần service phụ trợ
 
-API:
-
-- `GET /training-runs/{run_id}`
-
-### Bước 3. Test lấy run theo training instance
-
-API:
-
-- `GET /training-instances/{instance_id}/training-runs`
-
-## Khi nào cần service phụ trợ?
-
-### Test được ngay, ít phụ thuộc
-
-Các API sau chủ yếu chỉ cần backend training + database:
+### Test được ngay
 
 - `POST /training-definitions`
 - `GET /training-definitions/{definition_id}`
@@ -238,51 +242,50 @@ Các API sau chủ yếu chỉ cần backend training + database:
 - `GET /dynamic-flags/{definition_id}`
 - `PUT /dynamic-flags/{definition_id}`
 - `GET /dynamic-flags/{definition_id}/current-flag`
-- `POST /training-instances` với:
-  - `pool_id = null`
-  - `local_environment = false`
-  - `sandbox_definition_id = null`
+- `POST /training-instances` (không dùng pool)
 - `GET /training-instances`
 - `GET /training-instances/{instance_id}`
 
-### Có thể cần thêm sandbox service
-
-Các API sau có thể phụ thuộc hệ thống sandbox/pool:
+### Có thể cần thêm service
 
 - `PATCH /training-instances/{instance_id}/assign-pool`
 - `PATCH /training-instances/{instance_id}/unassign-pool`
 - `POST /training-runs`
-- các trường như:
-  - `sandbox_instance_ref_id`
-  - `sandbox_definition_id`
-  - `pool_id`
 
-Nếu chưa có các service phụ đang chạy, các API này có thể trả:
+Các field liên quan:
 
-- `404`
-- `409`
-- `500`
+- `sandbox_instance_ref_id`
+- `sandbox_definition_id`
+- `pool_id`
 
-## Cách hiểu đơn giản nhất
+Nếu thiếu service có thể gặp lỗi:
 
-Muốn test bằng dữ liệu của mình thì làm như sau:
+- `404`, `409`, `500`
 
-1. Tự tạo một bản ghi mới bằng API `POST`
+---
+
+## IX. Cách hiểu nhanh
+
+1. Tạo dữ liệu bằng API `POST`
 2. Copy `id` từ response
-3. Dùng `id` đó để test API `GET/PUT/PATCH`
+3. Dùng `id` để test API khác
 
-Nói ngắn gọn:
+Tóm lại:
 
-- **không cần lấy dữ liệu có sẵn trong DB**
-- **chỉ cần tự tạo dữ liệu trước bằng API**
+- Không cần dùng dữ liệu có sẵn
+- Luôn tự tạo dữ liệu trước khi test
 
-## Bộ dữ liệu khởi đầu khuyến nghị
+---
 
-Nếu muốn test dễ nhất, hãy bắt đầu bằng:
+## X. Bộ test khởi đầu
 
 1. Tạo `training definition`
 2. Test `dynamic flag`
-3. Tạo `training instance` không gắn pool
-4. Test các API đọc dữ liệu instance
+3. Tạo `training instance` (không dùng pool)
+4. Test API đọc instance
 
-Sau đó mới test tiếp phần sandbox/pool/run nếu môi trường local đã có đủ service phụ.
+Sau đó mới test:
+
+- sandbox
+- pool
+- training run

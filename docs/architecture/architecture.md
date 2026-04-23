@@ -1,10 +1,16 @@
-# Phân tích kiến trúc KYPO Microservices Architecture
+---
+title: Kiến trúc Microservices
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+# Phân tích kiến trúc Microservices của KYPO
 
 ## Tổng quan
 
-KYPO Cyber Range Platform không được xây dựng như một hệ thống nguyên khối (monolithic) mà được thiết kế theo kiến trúc microservices. Trong mô hình này, mỗi thành phần chức năng được triển khai dưới dạng dịch vụ độc lập và được container hóa bằng Docker.
+KYPO Cyber Range Platform được thiết kế theo kiến trúc **microservices** thay vì mô hình nguyên khối (monolithic). Trong hệ thống này, mỗi thành phần chức năng hoạt động như một dịch vụ độc lập, được đóng gói bằng Docker container.
 
-Các dịch vụ giao tiếp với nhau thông qua REST API, giúp hệ thống linh hoạt, dễ mở rộng và dễ bảo trì.
+Các dịch vụ tương tác với nhau thông qua REST API, giúp hệ thống đạt được sự linh hoạt, khả năng mở rộng cao và thuận tiện trong bảo trì.
 
 ---
 
@@ -12,187 +18,109 @@ Các dịch vụ giao tiếp với nhau thông qua REST API, giúp hệ thống 
 
 ![KYPO Microservices Architecture](/img/Graph.png)
 
-## Các lớp trong kiến trúc hệ thống
+## Các lớp kiến trúc chính
 
-Kiến trúc microservices của KYPO Cyber Range được chia thành ba lớp chính:
+Hệ thống được chia thành ba lớp chiến lược:
 
-- Frontend (User Interface)
-- Backend Microservices
-- Infrastructure & Automation
+1. **Frontend (User Interface):** Giao diện tương tác người dùng.
+2. **Backend Microservices:** Trung tâm xử lý logic nghiệp vụ.
+3. **Infrastructure & Automation:** Quản lý hạ tầng và tự động hóa.
 
-Ba lớp này phối hợp với nhau thông qua REST API để cung cấp môi trường đào tạo an ninh mạng linh hoạt và tự động.
+Các lớp này phối hợp chặt chẽ qua REST API để cung cấp một môi trường đào tạo an ninh mạng tự động hóa hoàn toàn.
 
 ---
 
 ## Frontend (User Interface)
 
-Frontend của hệ thống là **KYPO Angular Portal**, đóng vai trò là giao diện web trung tâm cho toàn bộ hệ thống.
+**KYPO Angular Portal** là giao diện web trung tâm, phục vụ hai nhóm đối tượng:
 
-Portal phục vụ hai nhóm người dùng chính:
+- Administrator / Instructor (Quản trị viên và Giảng viên).
+- Student / Trainee (Học viên).
 
-- Administrator / Instructor
-- Student / Trainee
+**Chức năng chính:**
 
-Các chức năng chính của Portal:
-
-- Thu thập yêu cầu từ người dùng (đăng nhập, tạo training, tham gia lab...)
-- Gửi request đến các backend services thông qua REST API
-- Hiển thị kết quả trả về như trạng thái lab, thông tin người dùng, quyền truy cập...
-
-Frontend chỉ đảm nhiệm phần giao diện và tương tác người dùng, trong khi toàn bộ logic nghiệp vụ được xử lý ở backend.
+- Tiếp nhận yêu cầu: Đăng nhập, khởi tạo khóa học, tham gia lab.
+- Điều phối request: Gửi yêu cầu đến các dịch vụ backend qua REST API.
+- Hiển thị trạng thái: Cập nhật tình trạng lab, thông tin quyền truy cập và tiến độ học tập.
 
 ---
 
 ## Backend Microservices
 
-Lớp backend là trung tâm xử lý logic của hệ thống. Các chức năng được chia thành nhiều microservices độc lập.
+Đây là "bộ não" điều khiển mọi logic nghiệp vụ của hệ thống, bao gồm các dịch vụ độc lập:
 
 ### Xác thực và quản lý người dùng
 
-Người dùng đăng nhập thông qua KYPO Angular Portal và được chuyển đến hệ thống xác thực sử dụng **Keycloak OIDC**.
+Hệ thống sử dụng **Keycloak OIDC** để quản lý tập trung:
 
-Keycloak thực hiện:
-
-- Authentication (xác thực người dùng)
-- Cấp Access Token (OIDC / JWT)
-
-Sau khi xác thực thành công, token này sẽ được các service backend sử dụng để xác định quyền truy cập của người dùng.
+- **Authentication:** Xác thực danh tính người dùng.
+- **Authorization:** Cấp phát Access Token (OIDC / JWT) để định danh quyền hạn trong toàn hệ thống.
 
 ### User Management Service
 
-User Management Service chịu trách nhiệm:
-
-- Quản lý thông tin người dùng
-- Xác định role (admin / instructor / student)
-- Cung cấp thông tin user cho các service khác
-
-Các service khác không xác thực trực tiếp người dùng mà tin cậy token do Keycloak cấp.
+- Quản lý thông tin chi tiết và vai trò (role) của người dùng.
+- Cung cấp dữ liệu định danh cho các dịch vụ khác dựa trên token từ Keycloak.
 
 ### Training Service
 
-Training Service chịu trách nhiệm quản lý toàn bộ logic đào tạo:
+Đảm nhiệm logic đào tạo cốt lõi:
 
-- Quản lý course và training
-- Quản lý scenario
-- Quản lý topology lab
-- Xác định số lượng VM cần thiết
-- Quản lý tiến độ của người học
-
-Service này quyết định khi nào cần tạo môi trường sandbox cho người học.
-
-Training Service cũng có thể gọi REST API của User Management Service để kiểm tra:
-
-- User là ai
-- Thuộc role nào
-- Có quyền tạo hoặc tham gia training hay không
-
-Điều này giúp đảm bảo việc phân quyền được quản lý tập trung.
+- Quản lý khóa học, kịch bản (scenario) và cấu trúc lab (topology).
+- Theo dõi tiến độ học viên và quyết định thời điểm khởi tạo môi trường thực hành.
 
 ### Sandbox Service
 
-Sandbox Service đóng vai trò là thành phần điều phối việc triển khai môi trường lab.
+Thành phần điều phối triển khai môi trường Lab (sandbox):
 
-Training Service gửi yêu cầu tạo môi trường đến Sandbox Service, bao gồm:
-
-- số lượng VM
-- loại hệ điều hành
-- network topology
-- thông tin scenario
-
-Sandbox Service thực hiện:
-
-- Authentication và Authorization
-- Quản lý quota
-- Quản lý vòng đời sandbox (create / reset / destroy)
-
-Sandbox Service được chia thành hai phần:
-
-- Sandbox API Gateway
-- Sandbox Infrastructure Orchestration
-
-API Gateway tiếp nhận request từ Training Service và chuyển đến lớp orchestration để triển khai hạ tầng.
+- Tiếp nhận yêu cầu từ Training Service về số lượng VM, hệ điều hành và cấu hình mạng.
+- Quản lý vòng đời sandbox (khởi tạo, đặt lại, hủy bỏ).
+- Gồm hai phần: **Sandbox API Gateway** (tiếp nhận request) và **Sandbox Infrastructure Orchestration** (điều phối hạ tầng).
 
 ---
 
 ## Infrastructure & Automation
 
-Lớp hạ tầng chịu trách nhiệm triển khai và cấu hình các môi trường máy ảo.
+Lớp hạ tầng chịu trách nhiệm biến các yêu cầu logic thành tài nguyên máy ảo thực tế.
 
 ### OpenStack
 
-Hệ thống sử dụng **OpenStack** để cung cấp tài nguyên hạ tầng cloud.
+Nền tảng Cloud cung cấp tài nguyên hạ tầng:
 
-OpenStack chịu trách nhiệm:
-
-- tạo máy ảo (VM)
-- tạo network
-- gán IP
-- quản lý security group
-
-Chỉ Sandbox Infrastructure Orchestration mới giao tiếp trực tiếp với OpenStack.
+- Khởi tạo máy ảo (VM), mạng ảo (Network) và gán IP.
+- Quản lý các nhóm bảo mật (Security Groups).
 
 ### Terraform (Infrastructure as Code)
 
-Sandbox Service sử dụng **KYPO Terraform Client** để triển khai hạ tầng dưới dạng Infrastructure as Code.
+Sử dụng **KYPO Terraform Client** để định nghĩa hạ tầng bằng mã nguồn:
 
-Terraform thực hiện:
-
-- lập kế hoạch triển khai
-- tạo VM
-- tạo network
-- cấu hình tài nguyên trên OpenStack
+- Lập kế hoạch và triển khai chính xác các tài nguyên đã thiết kế trên OpenStack.
 
 ### Ansible Automation
 
-Sau khi các VM được tạo, hệ thống sử dụng **Ansible** để tự động cấu hình môi trường.
+Tự động hóa cấu hình sau khi máy ảo được khởi tạo:
 
-Ansible thực hiện:
-
-- cấu hình hệ điều hành
-- cài đặt các công cụ cần thiết
-- thiết lập network nội bộ
-- triển khai scenario
-- tạo các lỗ hổng giả lập phục vụ đào tạo
-
-Nhờ đó môi trường sandbox được thiết lập hoàn toàn tự động.
+- Cài đặt phần mềm, công cụ chuyên dụng.
+- Thiết lập các lỗ hổng giả lập và triển khai kịch bản scenario.
+- Đảm bảo môi trường thực hành sẵn sàng mà không cần can thiệp thủ công.
 
 ---
 
-## Luồng hoạt động của hệ thống
+## Luồng vận hành hệ thống
 
-Quy trình hoạt động của KYPO Cyber Range diễn ra theo các bước sau:
-
-1. Người dùng đăng nhập vào KYPO Angular Portal
-2. Portal chuyển yêu cầu xác thực đến Keycloak
-3. Sau khi xác thực thành công, Keycloak cấp Access Token
-4. Portal gửi request đến Training Service
-5. Training Service yêu cầu Sandbox Service tạo môi trường lab
-6. Sandbox Service sử dụng Terraform để triển khai hạ tầng trên OpenStack
-7. Ansible cấu hình VM và cài đặt scenario
-8. Trạng thái môi trường được trả về Sandbox Service
-9. Training Service cập nhật trạng thái và gửi kết quả về Portal
-10. Người dùng nhận thông tin truy cập và bắt đầu thực hành
+1. **Truy cập:** Người dùng đăng nhập qua Portal.
+2. **Xác thực:** Keycloak xác thực và cấp Access Token.
+3. **Yêu cầu:** Portal gửi yêu cầu học tập đến Training Service.
+4. **Điều phối:** Training Service yêu cầu Sandbox Service chuẩn bị lab.
+5. **Khởi tạo:** Sandbox Service dùng Terraform tạo tài nguyên trên OpenStack.
+6. **Cấu hình:** Ansible thiết lập chi tiết bên trong máy ảo theo kịch bản.
+7. **Phản hồi:** Trạng thái sẵn sàng được báo lại cho người dùng qua Portal để bắt đầu thực hành.
 
 ---
 
-## Đặc điểm của kiến trúc
+## Đặc điểm nổi bật của kiến trúc
 
-### Isolation
-
-Mỗi người học được cấp một môi trường sandbox riêng biệt, đảm bảo không ảnh hưởng đến các sandbox khác.
-
-### Scalability
-
-Nhờ kiến trúc microservices, các dịch vụ như Training Service hoặc User Management Service có thể được mở rộng độc lập mà không ảnh hưởng toàn hệ thống.
-
-### Reproducibility
-
-Việc sử dụng Infrastructure as Code giúp hệ thống triển khai hàng loạt môi trường giống hệt nhau một cách nhanh chóng và nhất quán.
-
-### Centralized Security
-
-Hệ thống xác thực tập trung thông qua Keycloak giúp tăng cường bảo mật và giảm rủi ro tấn công.
-
-### Full Automation
-
-Sự kết hợp giữa Terraform và Ansible tạo nên quy trình triển khai môi trường lab hoàn toàn tự động.
+- **Sự cách ly (Isolation):** Mỗi học viên có môi trường sandbox riêng, không gây ảnh hưởng lẫn nhau.
+- **Khả năng mở rộng (Scalability):** Các dịch vụ có thể nâng cấp độc lập tùy theo tải trọng hệ thống.
+- **Tính nhất quán (Reproducibility):** Nhờ Infrastructure as Code, mọi môi trường lab đều được tái hiện chính xác như nhau.
+- **Bảo mật tập trung (Centralized Security):** Quản lý quyền hạn chặt chẽ thông qua Keycloak.
+- **Tự động hóa toàn diện (Full Automation):** Giảm thiểu tối đa sai sót từ con người nhờ sự kết hợp giữa Terraform và Ansible.

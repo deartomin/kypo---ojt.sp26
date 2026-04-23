@@ -3,36 +3,30 @@ title: Demo Full luồng qua API
 sidebar_position: 4
 ---
 
-## Demo Full Luồng bằng API
+# Demo Full luồng bằng API (Step-by-step)
 
-Tài liệu này mô tả đầy đủ luồng thao tác bằng API, bao gồm:
+Tài liệu này hướng dẫn toàn bộ quy trình từ tạo lab, vào bài đến làm bài thông qua API.
 
-- lấy token từ Keycloak
-- tạo sandbox definition
-- tạo pool
-- allocate sandbox
-- import training definition
-- tạo training instance
-- truy cập vào bài
-- lấy deep link
-- chỉnh số lần đăng nhập tối đa
-- full luồng làm bài cho **adaptive training**
-- full luồng làm bài cho **linear training**
+---
 
-### 1. Lấy token từ Keycloak
+## PHẦN 1 — CHUẨN BỊ LAB
+
+### Bước 1 — Lấy token từ Keycloak
 
 ```bash
-export TOKEN=$(curl -k -X POST https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token \
+export TOKEN=$(curl -k -X POST [https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token](https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token) \
   -d "username=crczp-admin" \
   -d "password=password" \
   -d "grant_type=password" \
   -d "client_id=CRCZP-Client" | jq -r '.access_token')
+
+echo $TOKEN
 ```
 
-### 2. Tạo sandbox definition
+### Bước 2 — Tạo sandbox definition
 
 ```bash
-curl -k -X POST https://42.115.38.85/sandbox-service/api/v1/definitions \
+curl -k -X POST [https://42.115.38.85/sandbox-service/api/v1/definitions](https://42.115.38.85/sandbox-service/api/v1/definitions) \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -41,10 +35,10 @@ curl -k -X POST https://42.115.38.85/sandbox-service/api/v1/definitions \
   }'
 ```
 
-### 3. Tạo pool
+### Bước 3 — Tạo pool
 
 ```bash
-curl -k -X POST https://42.115.38.85/sandbox-service/api/v1/pools \
+curl -k -X POST [https://42.115.38.85/sandbox-service/api/v1/pools](https://42.115.38.85/sandbox-service/api/v1/pools) \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -55,48 +49,54 @@ curl -k -X POST https://42.115.38.85/sandbox-service/api/v1/pools \
   }'
 ```
 
-> `comment` có thể có hoặc không.
-
-### 4. Allocate sandbox
+### Bước 4 — Allocate sandbox
 
 ```bash
-curl -k -X POST "https://42.115.38.85/sandbox-service/api/v1/pools/<ID của pool>/sandbox-allocation-units?count=<số lượng sandbox muốn allocate>" \
+curl -k -X POST "[https://42.115.38.85/sandbox-service/api/v1/pools/](https://42.115.38.85/sandbox-service/api/v1/pools/)<ID của pool>/sandbox-allocation-units?count=<số lượng sandbox muốn allocate>" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-### 5. Kiểm tra trạng thái của sandbox đang allocate
+### Bước 5 — Kiểm tra trạng thái sandbox
 
 ```bash
-curl -k -G https://42.115.38.85/sandbox-service/api/v1/pools/<ID của pool>/sandbox-allocation-units \
+curl -k -G [https://42.115.38.85/sandbox-service/api/v1/pools/](https://42.115.38.85/sandbox-service/api/v1/pools/)<ID của pool>/sandbox-allocation-units \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-### 6. Tạo adaptive training definition
+Lưu ý: Đợi cho đến khi trạng thái sandbox là READY.
+
+---
+
+## PHẦN 2 — CẤU HÌNH TRAINING DEFINITION
+
+### Bước 6 — Import training definition
 
 Đảm bảo đang ở thư mục chứa file `training.json`.
 
+**Adaptive:**
+
 ```bash
-curl -k -X POST https://42.115.38.85/adaptive-training/api/v1/imports/training-definitions \
+curl -k -X POST [https://42.115.38.85/adaptive-training/api/v1/imports/training-definitions](https://42.115.38.85/adaptive-training/api/v1/imports/training-definitions) \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d @training.json
 ```
 
-### 7. Tạo linear training definition
-
-Đảm bảo đang ở thư mục chứa file `training.json`.
+**Linear:**
 
 ```bash
-curl -k -X POST https://42.115.38.85/training/api/v1/imports/training-definitions \
+curl -k -X POST [https://42.115.38.85/training/api/v1/imports/training-definitions](https://42.115.38.85/training/api/v1/imports/training-definitions) \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d @training.json
 ```
 
-### 8. Tạo adaptive instance
+### Bước 7 — Tạo training instance
+
+**Adaptive Instance:**
 
 ```bash
-curl -k -X POST https://42.115.38.85/adaptive-training/api/v1/training-instances \
+curl -k -X POST [https://42.115.38.85/adaptive-training/api/v1/training-instances](https://42.115.38.85/adaptive-training/api/v1/training-instances) \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -104,16 +104,16 @@ curl -k -X POST https://42.115.38.85/adaptive-training/api/v1/training-instances
     "pool_id": <ID của pool>,
     "training_definition_id": <ID của training definition>,
     "access_token": "<Nhập prefix-token>",
-    "start_time": "<Nhập thời gian bắt đầu bài lab theo định dạng ISO 8601 (Ví dụ: 2026-03-20T09:00:00.000Z)>",
-    "end_time": "<Nhập thời gian bài lab hết hạn>",
-    "backward_mode": <true hoặc false>
+    "start_time": "2026-03-20T09:00:00.000Z",
+    "end_time": "2026-03-20T12:00:00.000Z",
+    "backward_mode": false
   }'
 ```
 
-### 9. Tạo linear instance
+**Linear Instance:**
 
 ```bash
-curl -k -X POST https://42.115.38.85/training/api/v1/training-instances \
+curl -k -X POST [https://42.115.38.85/training/api/v1/training-instances](https://42.115.38.85/training/api/v1/training-instances) \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -121,333 +121,153 @@ curl -k -X POST https://42.115.38.85/training/api/v1/training-instances \
     "pool_id": <ID của pool>,
     "training_definition_id": <ID của training definition>,
     "access_token": "<Nhập prefix-token>",
-    "start_time": "<Nhập thời gian bắt đầu bài lab theo định dạng ISO 8601 (Ví dụ: 2026-03-20T09:00:00.000Z)>",
-    "end_time": "<Nhập thời gian bài lab hết hạn>",
-    "backward_mode": <true hoặc false>
+    "start_time": "2026-03-20T09:00:00.000Z",
+    "end_time": "2026-03-20T12:00:00.000Z",
+    "backward_mode": false
   }'
 ```
 
-### 10. Lưu ý về thời gian
+> **Ghi chú về thời gian:** Hệ thống sử dụng múi giờ GMT+0. Tại Việt Nam, bạn cần lấy giờ thực tế trừ đi 7 giờ để nhập vào start_time/end_time.
 
-Các mốc thời gian như `start_time`, `end_time` được tính theo múi giờ gốc **GMT +0**, do đó khi tạo lab phải **trừ đi 7h**.
+---
 
-### 11. Truy cập vào bài (adaptive)
+## PHẦN 3 — QUẢN LÝ TRUY CẬP VÀ INSTANCE
 
-```bash
-curl -k -X POST "https://42.115.38.85/adaptive-training/api/v1/training-runs?accessToken=$TRAINING_TOKEN" \
-  -H "Authorization: Bearer $TOKEN"
-```
-
-### 12. Lấy link vào bài (adaptive)
+### Liệt kê các instance hiện có
 
 ```bash
-curl -k -X POST "https://42.115.38.85/adaptive-training/api/v1/training-runs/<training_run_id>/deep-link" \
-  -H "Authorization: Bearer $TOKEN"
-```
+# Adaptive
+curl -k -s "[https://42.115.38.85/adaptive-training/api/v1/training-instances](https://42.115.38.85/adaptive-training/api/v1/training-instances)" \
+  -H "Authorization: Bearer $TOKEN" | jq '.content[] | {id, title, access_token}'
 
-### 13. Truy cập vào bài (linear)
-
-```bash
-curl -k -X POST "https://42.115.38.85/training/api/v1/training-runs?accessToken=$TRAINING_TOKEN" \
-  -H "Authorization: Bearer $TOKEN"
-```
-
-### 14. Lấy link vào bài (linear)
-
-```bash
-curl -k -s -X POST "https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/deep-link" \
-  -H "Authorization: Bearer $TOKEN"
-```
-
-### 15. Liệt kê các instance hiện có (adaptive)
-
-```bash
-curl -k -s "https://42.115.38.85/adaptive-training/api/v1/training-instances" \
+# Linear
+curl -k -s "[https://42.115.38.85/training/api/v1/training-instances](https://42.115.38.85/training/api/v1/training-instances)" \
   -H "Authorization: Bearer $TOKEN" | jq '.content[] | {id, title, access_token}'
 ```
 
-### 16. Liệt kê các instance hiện có (linear)
+### Chỉnh số lần đăng nhập tối đa
 
 ```bash
-curl -k -s "https://42.115.38.85/training/api/v1/training-instances" \
-  -H "Authorization: Bearer $TOKEN" | jq '.content[] | {id, title, access_token}'
-```
-
-### 17. Chỉnh số lần đăng nhập vào bài tối đa (adaptive)
-
-```bash
-curl -k -s -X PATCH "https://42.115.38.85/adaptive-training/api/v1/training-instances/<Instance ID>/max-access-attempts?value=<số lần>" \
-  -H "Authorization: Bearer $TOKEN"
-```
-
-### 18. Chỉnh số lần đăng nhập vào bài tối đa (linear)
-
-```bash
-curl -k -s -X PATCH "https://42.115.38.85/training/api/v1/training-instances/<Instance ID>/max-access-attempts?value=<số lần>" \
+curl -k -s -X PATCH "[https://42.115.38.85/](https://42.115.38.85/)<service>/api/v1/training-instances/<ID>/max-access-attempts?value=<số lần>" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
 ---
 
-## Full luồng làm bài (adaptive)
+## PHẦN 4 — FULL LUỒNG LÀM BÀI (ADAPTIVE)
 
-### Bước 1 — Lấy token của account
+### Bước 1 — Lấy token học viên
 
 ```bash
-export TOKEN=$(curl -k -s -X POST https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token \
+export TOKEN=$(curl -k -s -X POST [https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token](https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token) \
   -d "username=<USERNAME>" \
   -d "password=<PASSWORD>" \
   -d "grant_type=password" \
   -d "client_id=CRCZP-Client" | jq -r '.access_token')
 ```
 
-Kiểm tra token đã lấy được:
-
-```bash
-echo $TOKEN
-```
-
 ### Bước 2 — Vào bài thi
 
-Liệt kê các instance hiện có:
-
 ```bash
-curl -k -s "https://42.115.38.85/adaptive-training/api/v1/training-instances" \
-  -H "Authorization: Bearer $TOKEN" | jq '.content[] | {id, title, access_token}'
-```
-
-```bash
-export RUN=$(curl -k -s -X POST "https://42.115.38.85/adaptive-training/api/v1/training-runs?accessToken=<ACCESS_TOKEN>" \
+export RUN=$(curl -k -s -X POST "[https://42.115.38.85/adaptive-training/api/v1/training-runs?accessToken=](https://42.115.38.85/adaptive-training/api/v1/training-runs?accessToken=)<ACCESS_TOKEN>" \
   -H "Authorization: Bearer $TOKEN")
 
 export RUN_ID=$(echo $RUN | jq -r '.training_run_id')
 export SANDBOX_ID=$(echo $RUN | jq -r '.sandbox_instance_ref_id')
 
-echo "Training Run ID: $RUN_ID"
-echo "Sandbox ID: $SANDBOX_ID"
-```
-
-Xem nội dung phase hiện tại:
-
-```bash
-curl -k -s "https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/resumption" \
+# Xem phase hiện tại
+curl -k -s "[https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/resumption](https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/resumption)" \
   -H "Authorization: Bearer $TOKEN" | jq '.current_phase'
 ```
 
-### Bước 3 — Lấy SSH config
+### Bước 3 — SSH vào máy ảo Sandbox
 
 ```bash
-curl -k -s "https://42.115.38.85/sandbox-service/api/v1/sandboxes/$SANDBOX_ID/user-ssh-access" \
+curl -k -s "[https://42.115.38.85/sandbox-service/api/v1/sandboxes/$SANDBOX_ID/user-ssh-access](https://42.115.38.85/sandbox-service/api/v1/sandboxes/$SANDBOX_ID/user-ssh-access)" \
   -H "Authorization: Bearer $TOKEN" -o ssh-config.zip
 
 unzip ssh-config.zip -d ssh-config
-```
-
-Copy private key vào `~/.ssh`:
-
-```bash
 cp ssh-config/*-user-key ~/.ssh/
 chmod 600 ~/.ssh/*-user-key
-```
 
-### Bước 4 — SSH vào máy ảo sandbox
-
-Xem danh sách các host có thể SSH:
-
-```bash
-cat ssh-config/*-user-config
-```
-
-SSH vào máy lab (thường là `student-vm`):
-
-```bash
+# Kết nối
 ssh -F ssh-config/*-user-config student-vm
 ```
 
-### Bước 5 — Nộp đáp án
-
-Đối với training phase:
+### Bước 4 — Nộp đáp án
 
 ```bash
-curl -k -s -X POST "https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/is-correct-answer" \
+# Nộp Flag (Training Phase)
+curl -k -s -X POST "[https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/is-correct-answer](https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/is-correct-answer)" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"answer": "<FLAG>"}'
-```
 
-Response `"correct": true` nghĩa là đúng.
-
-Đối với access phase, nộp passkey:
-
-```bash
-curl -k -s -X POST "https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/is-correct-passkey" \
+# Nộp Passkey (Access Phase)
+curl -k -s -X POST "[https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/is-correct-passkey](https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/is-correct-passkey)" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"passkey": <passkey>}'
 ```
 
-### Bước 6 — Chuyển sang phase tiếp theo
+### Bước 5 — Điều hướng và Kết thúc
 
 ```bash
-curl -k -s "https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/next-phases" \
+# Lấy phase tiếp theo
+curl -k -s "[https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/next-phases](https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/next-phases)" \
   -H "Authorization: Bearer $TOKEN" | jq '{title, phase_type}'
-```
 
-### Bước 7 — Kết thúc bài thi
-
-```bash
-curl -k -s -X PUT "https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID" \
+# Kết thúc bài thi
+curl -k -s -X PUT "[https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID](https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID)" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-Không có output = thành công (HTTP 200).
-
-### Bước 8 — Dọn dẹp
-
-```bash
-rm -f ~/.ssh/*-user-key
-rm -rf ~/ssh-config ~/ssh-config.zip
-```
-
-### Lấy deep link để mở giao diện web (tùy chọn)
-
-Nếu muốn chuyển sang giao diện web sau khi đã vào bài từ terminal:
-
-```bash
-curl -k -s -X POST "https://42.115.38.85/adaptive-training/api/v1/training-runs/$RUN_ID/deep-link" \
-  -H "Authorization: Bearer $TOKEN" | jq -r '.deep_link_url'
-```
-
-Mở URL trả về trên browser — tự động đăng nhập và vào thẳng bài thi.
-
 ---
 
-## Full luồng làm bài (linear)
+## PHẦN 5 — FULL LUỒNG LÀM BÀI (LINEAR)
 
-### Bước 1 — Lấy token của account
-
-```bash
-export TOKEN=$(curl -k -s -X POST https://42.115.38.85/keycloak/realms/CRCZP/protocol/openid-connect/token \
-  -d "username=<USERNAME>" \
-  -d "password=<PASSWORD>" \
-  -d "grant_type=password" \
-  -d "client_id=CRCZP-Client" | jq -r '.access_token')
-```
-
-Kiểm tra token đã lấy được:
+### Bước 1 — Vào bài và kiểm tra Level
 
 ```bash
-echo $TOKEN
-```
-
-### Bước 2 — Vào bài thi
-
-Liệt kê các instance hiện có:
-
-```bash
-curl -k -s "https://42.115.38.85/training/api/v1/training-instances" \
-  -H "Authorization: Bearer $TOKEN" | jq '.content[] | {id, title, access_token}'
-```
-
-```bash
-export RUN=$(curl -k -s -X POST "https://42.115.38.85/training/api/v1/training-runs?accessToken=<ACCESS_TOKEN>" \
+export RUN=$(curl -k -s -X POST "[https://42.115.38.85/training/api/v1/training-runs?accessToken=](https://42.115.38.85/training/api/v1/training-runs?accessToken=)<ACCESS_TOKEN>" \
   -H "Authorization: Bearer $TOKEN")
 
 export RUN_ID=$(echo $RUN | jq -r '.training_run_id')
-export SANDBOX_ID=$(echo $RUN | jq -r '.sandbox_instance_ref_id')
 
-echo "Training Run ID: $RUN_ID"
-echo "Sandbox ID: $SANDBOX_ID"
-```
-
-Xem nội dung phase hiện tại:
-
-```bash
+# Xem nội dung level hiện tại
 echo $RUN | jq '.abstract_level_dto | {title, level_type, cloud_content}'
 ```
 
-### Bước 3 — Lấy SSH config
+### Bước 2 — Nộp đáp án
 
 ```bash
-curl -k -s "https://42.115.38.85/sandbox-service/api/v1/sandboxes/$SANDBOX_ID/user-ssh-access" \
-  -H "Authorization: Bearer $TOKEN" -o ssh-config.zip
-
-unzip ssh-config.zip -d ssh-config
-```
-
-Copy private key vào `~/.ssh`:
-
-```bash
-cp ssh-config/*-user-key ~/.ssh/
-chmod 600 ~/.ssh/*-user-key
-```
-
-### Bước 4 — SSH vào máy ảo sandbox
-
-Xem danh sách các host có thể SSH:
-
-```bash
-cat ssh-config/*-user-config
-```
-
-SSH vào máy lab (thường là `student-vm`):
-
-```bash
-ssh -F ssh-config/*-user-config student-vm
-```
-
-### Bước 5 — Nộp đáp án
-
-Đối với training level:
-
-```bash
-curl -k -s -X POST "https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/is-correct-answer" \
+# Nộp Flag
+curl -k -s -X POST "[https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/is-correct-answer](https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/is-correct-answer)" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"answer": "<FLAG>"}'
-```
 
-Response `"correct": true` nghĩa là đúng.
-
-Đối với access level, nộp passkey:
-
-```bash
-curl -k -s -X POST "https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/is-correct-passkey" \
+# Nộp Passkey
+curl -k -s -X POST "[https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/is-correct-passkey](https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/is-correct-passkey)" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"passkey": "<PASSKEY>"}'
 ```
 
-### Bước 6 — Chuyển sang level tiếp theo
+---
+
+## PHẦN 6 — TIỆN ÍCH VÀ DỌN DẸP
+
+### Lấy Deep Link để mở trên Browser
 
 ```bash
-curl -k -s "https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/next-levels" \
-  -H "Authorization: Bearer $TOKEN" | jq '{title, level_type}'
+curl -k -s -X POST "[https://42.115.38.85/](https://42.115.38.85/)<service>/api/v1/training-runs/$RUN_ID/deep-link" \
+  -H "Authorization: Bearer $TOKEN" | jq -r '.deep_link_url'
 ```
 
-### Bước 7 — Kết thúc bài thi
-
-```bash
-curl -k -s -X PUT "https://42.115.38.85/training/api/v1/training-runs/$RUN_ID" \
-  -H "Authorization: Bearer $TOKEN"
-```
-
-Không có output = thành công (HTTP 200).
-
-### Bước 8 — Dọn dẹp
+### Dọn dẹp tài nguyên SSH local
 
 ```bash
 rm -f ~/.ssh/*-user-key
 rm -rf ~/ssh-config ~/ssh-config.zip
 ```
-
-### Lấy deep link để mở giao diện web (tùy chọn)
-
-Nếu muốn chuyển sang giao diện web sau khi đã vào bài từ terminal:
-
-```bash
-curl -k -s -X POST "https://42.115.38.85/training/api/v1/training-runs/$RUN_ID/deep-link" \
-  -H "Authorization: Bearer $TOKEN" | jq -r '.deep_link_url'
-```
-
-Mở URL trả về trên browser — tự động đăng nhập và vào thẳng bài thi.
